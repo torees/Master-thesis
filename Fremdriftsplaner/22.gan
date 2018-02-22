@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?><project name="Master_Fremdriftsplan" company="Tore Sæterdal" webLink="http://" view-date="2017-12-01" view-index="0" gantt-divider-location="300" resource-divider-location="300" version="2.8.5" locale="en_US">
+    <description/>
+    <view zooming-state="default:8" id="gantt-chart">
+        <field id="tpd3" name="Name" width="167" order="0"/>
+        <field id="tpd4" name="Begin date" width="65" order="1"/>
+        <field id="tpd5" name="End date" width="64" order="2"/>
+        <option id="color.recent"><![CDATA[#ff0000 #ccffcc #99ff99]]></option>
+    </view>
+    <view id="resource-table">
+        <field id="0" name="Name" width="210" order="0"/>
+        <field id="1" name="Default role" width="86" order="1"/>
+    </view>
+    <!-- -->
+    <calendars>
+        <day-types>
+            <day-type id="0"/>
+            <day-type id="1"/>
+            <default-week id="1" name="default" sun="1" mon="0" tue="0" wed="0" thu="0" fri="0" sat="1"/>
+            <only-show-weekends value="true"/>
+            <overriden-day-types/>
+            <days/>
+        </day-types>
+    </calendars>
+    <tasks empty-milestones="true">
+        <taskproperties>
+            <taskproperty id="tpd0" name="type" type="default" valuetype="icon"/>
+            <taskproperty id="tpd1" name="priority" type="default" valuetype="icon"/>
+            <taskproperty id="tpd2" name="info" type="default" valuetype="icon"/>
+            <taskproperty id="tpd3" name="name" type="default" valuetype="text"/>
+            <taskproperty id="tpd4" name="begindate" type="default" valuetype="date"/>
+            <taskproperty id="tpd5" name="enddate" type="default" valuetype="date"/>
+            <taskproperty id="tpd6" name="duration" type="default" valuetype="int"/>
+            <taskproperty id="tpd7" name="completion" type="default" valuetype="int"/>
+            <taskproperty id="tpd8" name="coordinator" type="default" valuetype="text"/>
+            <taskproperty id="tpd9" name="predecessorsr" type="default" valuetype="text"/>
+        </taskproperties>
+        <task id="0" name="CCTA18" color="#99ff99" meeting="false" start="2018-01-15" duration="14" complete="0" expand="true"/>
+        <task id="17" name="Literature review" color="#ccffcc" meeting="false" start="2018-02-10" duration="49" complete="0" expand="true"/>
+        <task id="9" name="Investigate nonlinear Command Governor" color="#8cb6ce" meeting="false" start="2018-02-15" duration="21" complete="0" expand="true"/>
+        <task id="13" name="Rewrite L1 from backstepping to cascade controller" color="#8cb6ce" meeting="false" start="2018-02-22" duration="4" complete="0" expand="true"/>
+        <task id="20" name="Immersion and invariance" color="#8cb6ce" meeting="false" start="2018-03-08" duration="7" complete="0" expand="true"/>
+        <task id="22" name="Prepare fir MClab session with Ole" color="#8cb6ce" meeting="false" start="2018-03-16" duration="3" complete="0" expand="true"/>
+        <task id="11" name="MC-lab session 1" color="#8cb6ce" meeting="false" start="2018-03-19" duration="5" complete="0" expand="true"/>
+        <task id="26" name="Easter" color="#ff0000" meeting="false" start="2018-03-24" duration="9" complete="0" expand="true"/>
+        <task id="24" name="Evaluating experiments/writing" color="#8cb6ce" meeting="false" start="2018-04-03" duration="7" complete="0" expand="true"/>
+        <task id="28" name="Compare performance of L1 with another controller in simulations" color="#8cb6ce" meeting="false" start="2018-04-10" duration="7" complete="0" expand="true"/>
+        <task id="31" name="Writing" color="#8cb6ce" meeting="false" start="2018-04-17" duration="40" complete="0" expand="true"/>
+        <task id="15" name="Prep and Exam TDT4145 Database" color="#8cb6ce" meeting="false" start="2018-05-29" duration="2" complete="0" expand="true"/>
+        <task id="2" name="Finishing touches" color="#8cb6ce" meeting="false" start="2018-05-20" duration="22" complete="0" expand="true"/>
+        <task id="4" name="Deadline" color="#ff0000" meeting="false" start="2018-06-11" duration="1" complete="0" expand="true"/>
+    </tasks>
+    <resources/>
+    <allocations/>
+    <vacations/>
+    <previous/>
+    <roles roleset-name="Default"/>
+</project>

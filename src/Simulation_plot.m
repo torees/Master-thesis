@@ -30,7 +30,7 @@ elseif Scenario ==2
 end
 
 %%Plotting
-sim('CS2_multiple');
+sim('Adaptive_control_CSAD_model');
 
 figure(1)
 hold on
@@ -39,8 +39,8 @@ hold on
 %pathplotter(eta_NPNV, tsamp, dec, tout,'--g')
 %pathplotter(eta_AB, tsamp, dec, tout,'c')
 pathplotter(eta_t, tsamp, dec, tout,'k')
-pathplotter(eta_LPLV_MRAC_BS, tsamp, dec, tout,'-b')
-pathplotter(eta_LPLV_MRAC_CASCADE, tsamp, dec, tout,'-.r')
+%pathplotter(eta_LPLV_MRAC_BS, tsamp, dec, tout,'-b')
+%pathplotter(eta_LPLV_MRAC_CASCADE, tsamp, dec, tout,'-.r')
 h = zeros(3, 1);
 h(1) = plot(NaN,NaN,'k');
 h(2) = plot(NaN,NaN,'-b');
@@ -64,47 +64,47 @@ axis equal
 figure(2)
 subplot(2,2,1);
 hold on 
-plot(IAE_LPLV_MRAC_CASCADE) 
-plot(IAE_LPLV_MRAC_BS) 
+%plot(IAE_LPLV_MRAC_CASCADE) 
+%plot(IAE_LPLV_MRAC_BS) 
 %plot(IAE_NPLV)
 %plot(IAE_NPNV)
 %plot(IAE_AB)
 %plot(IAE_L1AB)
 %legend('LP-LV','NP-LV','NP-NV','AB')
-legend('Cascade MRAC','Backstepping MRAC')
-ylabel('IAE')
-subplot(2,2,2)
-hold on
-plot(IAEW_LPLV_MRAC_CASCADE)
-plot(IAEW_LPLV_MRAC_BS)
+% legend('Cascade MRAC','Backstepping MRAC')
+% ylabel('IAE')
+% subplot(2,2,2)
+% hold on
+% plot(IAEW_LPLV_MRAC_CASCADE)
+% plot(IAEW_LPLV_MRAC_BS)
 %plot(IAEW_NPLV)
 %plot(IAEW_NPNV)
 %plot(IAEW_AB)
 %plot(IAEW_L1AB)
 %legend('LP-LV','NP-LV','NP-NV','AB')
-legend('Cascade MRAC','Backstepping MRAC')
-ylabel('IAEW')
-subplot(2,2,3)
-hold on
-plot(ISE_LPLV_MRAC_CASCADE)
-plot(ISE_LPLV_MRAC_BS)
+% legend('Cascade MRAC','Backstepping MRAC')
+% ylabel('IAEW')
+% subplot(2,2,3)
+% hold on
+% plot(ISE_LPLV_MRAC_CASCADE)
+% plot(ISE_LPLV_MRAC_BS)
 %plot(ISE_NPLV)
 %plot(ISE_NPNV)
 %plot(ISE_AB)
 %plot(ISE_L1AB)
 %legend('LP-LV','NP-LV','NP-NV','AB')
-ylabel('ISE')
-legend('Cascade MRAC','Backstepping MRAC')
-subplot(2,2,4)
-hold on
-plot(ITAE_LPLV_MRAC_CASCADE)
-plot(ITAE_LPLV_MRAC_BS)
+% ylabel('ISE')
+% legend('Cascade MRAC','Backstepping MRAC')
+% subplot(2,2,4)
+% hold on
+% plot(ITAE_LPLV_MRAC_CASCADE)
+% plot(ITAE_LPLV_MRAC_BS)
 %plot(ITAE_NPLV)
 %plot(ITAE_NPNV)
 %plot(ITAE_AB)
 %plot(ITAE_L1AB)
 %legend('LP-LV','NP-LV','NP-NV','AB')
-legend('Cascade MRAC','Backstepping MRAC')
-ylabel('ISE')
-hold off
+% legend('Cascade MRAC','Backstepping MRAC')
+% ylabel('ISE')
+% hold off
 

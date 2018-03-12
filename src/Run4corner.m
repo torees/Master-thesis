@@ -3,7 +3,7 @@ close all
 %Simulation Scenarios
 
 
-
+a = 0.050;
 %Controller Gains
 Gamma1 = diag([0.08,0.08,0.0698]);
 Gamma2 = diag([0.2,0.2,0.1745]);
@@ -11,8 +11,8 @@ Gamma2 = diag([0.2,0.2,0.1745]);
 eta_initial = [5; -1; 0];
 nu_initial = [0; 0; 0];
 
-t_sim = 300;
-sim('CSAD_model');
+t_sim = 400;
+sim('Adaptive_control_CSAD_model');
 
 
 
@@ -25,13 +25,18 @@ y = eta_plot(:,2);
 plot(y,x,'k','LineWidth',1.5)
 
 tsamp=3;
-dec = 4003;
-pathplotter(eta_LPLV, tsamp, dec, tout,'r')
+dec = 2003;
+pathplotter(eta_L1, tsamp, dec, tout,'r')
 hold off
 xlabel('East [m]')
 ylabel('North [m]')
 axis equal
-saveas(gcf, 'Simulations/LPLV', 'epsc')
+%saveas(gcf, 'Simulations/LPLV', 'epsc')
+
+figure(2) 
+plot(x_tilde)
+figure(3)
+plot(y_tilde)
 
 
 

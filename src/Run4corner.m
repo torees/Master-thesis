@@ -11,7 +11,7 @@ Gamma2 = diag([0.2,0.2,0.1745]);
 eta_initial = [5; -1; 0];
 nu_initial = [0; 0; 0];
 
-t_sim = 400;
+t_sim = 800;
 sim('Adaptive_control_CSAD_model');
 
 
@@ -33,10 +33,10 @@ ylabel('North [m]')
 axis equal
 %saveas(gcf, 'Simulations/LPLV', 'epsc')
 
-figure(2) 
-plot(x_tilde)
-figure(3)
-plot(y_tilde)
+% figure(2) 
+% plot(x_tilde)
+% figure(3)
+% plot(y_tilde)
 
 
 

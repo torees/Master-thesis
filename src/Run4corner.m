@@ -11,7 +11,7 @@ Gamma2 = diag([0.2,0.2,0.1745]);
 eta_initial = [5; -1; 0];
 nu_initial = [0; 0; 0];
 
-t_sim = 800;
+t_sim = 400;
 sim('Adaptive_control_CSAD_model');
 
 

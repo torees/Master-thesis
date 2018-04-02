@@ -1,0 +1,4 @@
+1. L1 unconstrained. start: 44s, kjøretid: 5 min
+2. L1 LP start: 46s, kjøretid: 5 min
+3. L1 MRS, rate ganget med 1.2. start: ?, kjøretid: 5,12 sek
+4. L1 MRS, rate ganget med 1.5. start: 57, kjøretid: 5.32 sek

@@ -1,0 +1,28 @@
+1. NPLV unconstrained, gain 1 ( K1 = 0.08 0.08 0.0698)-Tid start 0:0:44
+2. NPNV unconstrained, gain 1 ( K1 = 0.08 0.08 0.0698)-Tid start 0:0:57
+3. NPNV magnitude constr = (1.1089 0.6387 0.6176) , gain 1 ( K1 = 0.08 0.08 0.0698)-Tid start 0:1:08
+4. NPNV raskMRS constr = (1.1089 0.6387 0.6176) , gain 1 ( K1 = 0.08 0.08 0.0698)-Tid start 0:0:40
+5. NPLV raskMRS constr = (2 1.5 1) , gain 1 ( K1 = 0.08 0.08 0.0698)-Tid start 0:0:49
+6. NPNV raskMRS constr = (2 1.5 1) , gain 1 ( K1 = 0.08 0.08 0.0698)-Tid start 0:0:43
+7. DWC unconstrained, startid: 56, kjøretid 6min 44s. 
+8. NPLV treg MRS,constr = (2 1.5 1), gain 1 ( K1 = 0.08 0.08 0.0698)  starttid 1.10, kjøretid 5min45s. 
+9. NPNV treg MRS,constr = (2 1.5 1), gain 1 ( K1 = 0.08 0.08 0.0698)  starttid 45, kjøretid 5min20s. 
+10. NPLV magnitude constr = (2 1.5 1), gain 1 ( K1 = 0.08 0.08 0.0698) starttid 44. kjøretid 5.45
+11. NPNV magnitude constr = (2 1.5 1), gain 1 ( K1 = 0.08 0.08 0.0698) starttid 58. kjøretid 5.48
+12. NPNV magnitude, lave constr , gain 1 ( K1 = 0.03 0.03 0.0349) starttid 1.32. kjøretid 12.57
+13. DWC, lave constr , gain 1 ( K1 = 0.03 0.03 0.0349) starttid 1.10 kjøretid 6.41
+14: II, constr = (2 1.5 1) K1 = 0.06 0.06 0.0698), K2 = 0.2 0.2 0.174)*4, starttid 1.03, kjøretid 8.43
+15:II, constr = (2 1.5 1) K1 = 0.08 0.08 0.0698), K2 = 0.2 0.2 0.174)M*4, starttid 1.04, kjøretid 6.48
+16:II, raskMRS constr = (2 1.5 1) K1 = 0.08 0.08 0.0698), K2 = 0.2 0.2 0.174)M*4, starttid 1.04, kjøretid 6.48
+17:II, LP constr = (2 1.5 1) K1 = 0.08 0.08 0.0698), K2 = 0.2 0.2 0.174)M*4, starttid 47, kjøretid 6.47
+18:DWC constr = (1.1089 0.6387 0.6176) K1 = 0.03 0.03 0.0349), , starttid 1.06, kjøretid 6.53
+19: L1 unconstrained 5,1,-90 til 7,-1,0, trajectory. starttid 1.11, kjøretid 2.01. 
+20: L1 unconstrained 4,1,-90 til 8,-2,0, trajectory. starttid 1.01 kjøretid 2.13
+21: L1 unconstrained 4,1,-90 til 8,-2,0, set-point .starttid 1.11 kjøretid 1.42
+22: L1 MRS 4,1,-90 til 8,-2,0, set-point .starttid 50 kjøretid 1.39
+23: L1 LP 4,1,-90 til 8,-2,0, set-point .starttid 1.32 kjøretid 1.38
+24: L1 unconstrained 7,-1,-90 til 7,0,90, set-point .starttid 1.25 kjøretid 1.25
+25: L1 LP 7,-1,-90 til 7,0,90, set-point .starttid 35 kjøretid 1.27
+26: L1 MRS 7,-1,-90 til 7,0,90, set-point .starttid 1.07 kjøretid 1.23
+
+

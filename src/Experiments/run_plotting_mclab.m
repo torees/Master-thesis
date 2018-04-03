@@ -20,26 +20,33 @@ load('L1\1\alpha');
 load('L1\1\tau');
 load('L1\1\tau_dot');
 
-load('All\20\eta');
-load('All\20\eta_ref');
-load('All\20\nu');
-load('All\20\alpha');
-load('All\20\tau');
-load('All\20\tau_dot');
-% load('L1\2\eta');
-% load('L1\2\eta_ref');
-% load('L1\2\nu');
-% load('L1\2\alpha');
-% load('L1\2\tau');
-% load('L1\2\tau_dot');
+% load('All\2\eta');
+% load('All\2\eta_ref');
+% load('All\2\nu');
+% load('All\2\alpha');
+% load('All\2\tau');
+% load('All\2\tau_dot');
 
-% load('L1\4\eta');
-% load('L1\4\eta_ref');
-% load('L1\4\nu');
-% load('L1\4\alpha');
-% load('L1\4\tau');
-% load('L1\4\tau_dot');
+load('L1\2\eta');
+load('L1\2\eta_ref');
+load('L1\2\nu');
+load('L1\2\alpha');
+load('L1\2\tau');
+load('L1\2\tau_dot');
 
+load('L1\4\eta');
+load('L1\4\eta_ref');
+load('L1\4\nu');
+load('L1\4\alpha');
+load('L1\4\tau');
+load('L1\4\tau_dot');
+
+load('L1\3\eta');
+load('L1\3\eta_ref');
+load('L1\3\nu');
+load('L1\3\alpha');
+load('L1\3\tau');
+load('L1\3\tau_dot');
 %{
 time 
    start end
@@ -50,16 +57,11 @@ time
 5: 49    395
 6: 43    373   
 7: 44    395
-8: 55    392
-9: 65    410
-10:37    363
-11:52    352
-12:66    357
-13:33    324
+
 %}
 
-timestart=71;
-timeend=102+timestart;
+timestart=57;
+timeend=5*60+57;
 ts = 0.01;
 simtime = timeend-timestart;
 
@@ -152,6 +154,10 @@ ylabel('IADC')
 xlabel('Time[s]')
 xlim([0 eta_iae(end,1)])
 grid on
+
+MaxIAE = max(e1_IAE)
+MaxIAEW = max(e1_IAEW)
+MaxIADC = max(e1_IADC)
 
 % figure
 % IAE2 = subplot(2,1,1);

@@ -13,19 +13,8 @@ close all
 9: NPLV, magnitude constraints = [2, 1.5, 1]
 10: NPLV, magnitude constraints = [2, 1.5, 1]
 %}
-load('L1\1\eta');
-load('L1\1\eta_ref');
-load('L1\1\nu');
-load('L1\1\alpha');
-load('L1\1\tau');
-load('L1\1\tau_dot');
 
-% load('All\2\eta');
-% load('All\2\eta_ref');
-% load('All\2\nu');
-% load('All\2\alpha');
-% load('All\2\tau');
-% load('All\2\tau_dot');
+
 
 load('L1\2\eta');
 load('L1\2\eta_ref');
@@ -47,6 +36,22 @@ load('L1\3\nu');
 load('L1\3\alpha');
 load('L1\3\tau');
 load('L1\3\tau_dot');
+
+
+load('L1\1\eta');
+load('L1\1\eta_ref');
+load('L1\1\nu');
+load('L1\1\alpha');
+load('L1\1\tau');
+load('L1\1\tau_dot');
+
+load('All\21\eta');
+load('All\21\eta_ref');
+load('All\21\nu');
+load('All\21\alpha');
+load('All\21\tau');
+load('All\21\tau_dot');
+
 %{
 time 
    start end
@@ -60,8 +65,8 @@ time
 
 %}
 
-timestart=57;
-timeend=5*60+57;
+timestart=71;
+timeend=200;
 ts = 0.01;
 simtime = timeend-timestart;
 
@@ -71,7 +76,7 @@ hold on
 xlabel('East [m]')
 ylabel('North [m]')
 pathtrackplotter_mclab(eta(2:4,timestart/ts:timeend/ts), 10, 3000, 'b', 'b')
-pathtrackplotter_mclab(eta_t(2:4,timestart/ts:timeend/ts), 10, 3000, '-.r', '--r')
+%pathtrackplotter_mclab(eta_t(2:4,timestart/ts:timeend/ts), 10, 3000, '-.r', '--r')
 h = zeros(2, 1);
 h(1) = plot(NaN,NaN,'b','LineWidth',1.5);
 h(2) = plot(NaN,NaN,'r','LineWidth',1.5);
@@ -155,8 +160,8 @@ xlabel('Time[s]')
 xlim([0 eta_iae(end,1)])
 grid on
 
-MaxIAE = max(e1_IAE)
-MaxIAEW = max(e1_IAEW)
+MaxIAE = max(e2_IAE)
+MaxIAEW = max(e2_IAEW)
 MaxIADC = max(e1_IADC)
 
 % figure

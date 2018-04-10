@@ -1,12 +1,10 @@
-
-
 figure(1)
 hold on
 
 eta_plot = [5 -1 0;eta_t];
 x = eta_plot(:,1);
 y = eta_plot(:,2);
-plot(y,x,'-r','LineWidth',1.5)
+plot(y,x,'k','LineWidth',1.5)
 
 tsamp=3;
 dec = 5*t_sim;
@@ -14,15 +12,12 @@ dec = 5*t_sim;
 switch controller
     
     case 1
-        pathplotter(eta_L1, tsamp, dec, tout,'b')
+        pathplotter(eta_L1, tsamp, dec, tout,'r')
     case 2
-        pathplotter(eta_II, tsamp, dec, tout,'b')
+        pathplotter(eta_II, tsamp, dec, tout,'r')
     otherwise
 end
 
-h(1) = plot(NaN,NaN,'b','LineWidth',1.5);
-h(2) = plot(NaN,NaN,'r','LineWidth',1.5);
-legend(h, 'CSAD','Reference','Location','best');
 hold off
 xlabel('East [m]')
 ylabel('North [m]')
@@ -30,8 +25,7 @@ axis equal
 %saveas(gcf, 'Simulations/LPLV', 'epsc')
 
 
-figure(2)
-title('')
+figure
 surge = subplot(3,1,1);
 hold on
 plot(tau_ts_surge,'b','LineWidth',1.5)
@@ -51,39 +45,40 @@ hold on
 plot(tau_ts_yawrate,'b','LineWidth',1.5)
 ylabel('\tau_3 [Nm]')
 grid on
-%xlabel('Time [s]')
+xlabel('Time [s]')
 xlim([0 t_sim])
 hold off
 
 
 % METRICS
-eta_iae = eta_L1;
+eta_iae = eta_iae';
 
-figure(3)
+figure
 IAE1 = subplot(3,1,1);
 hold on
-plot(e1_IAE,'Linewidth',1.5)
+plot(IAE1,eta_iae(:,1),e1_IAE,'Linewidth',1.5)
 ylabel('IAE')
 grid on
 title('Pose tracking metrics')
 hold off
-xlim([0 t_sim])
+xlim([0 eta_iae(end,1)])
 IAEW1 = subplot(3,1,2);
 hold on
-plot(e1_IAEW,'Linewidth',1.5)
+plot(IAEW1,eta_iae(:,1),e1_IAEW,'Linewidth',1.5)
 ylabel('IAEW')
-xlim([0 t_sim])
+xlim([0 eta_iae(end,1)])
 grid on
 IADC = subplot(3,1,3);
 hold on
-plot(e1_IADC,'Linewidth',1.5)
+plot(IADC,eta_iae(:,1),e1_IADC,'Linewidth',1.5)
+
 ylabel('IADC')
 xlabel('Time[s]')
-xlim([0 t_sim])
+xlim([0 eta_iae(end,1)])
 grid on
 
-MaxIAE = max(e1_IAE)
-MaxIAEW = max(e1_IAEW)
+MaxIAE = max(e2_IAE)
+MaxIAEW = max(e2_IAEW)
 MaxIADC = max(e1_IADC)
 
 

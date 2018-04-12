@@ -1,0 +1,23 @@
+
+load('1\eta');
+load('1\nu');
+load('1\tau');
+
+
+
+
+
+simtime = length(eta(1,:))/100;
+eta=eta';
+nu=nu';
+sim("Mclab_estimator_fix")
+
+nu_hat = nu_hat';
+figure(6)
+hold on
+plot(nu_ts)
+plot(nu_hat)
+
+
+
+

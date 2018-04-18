@@ -78,14 +78,6 @@ load('L1\1\alpha');
 load('L1\1\tau');
 load('L1\1\tau_dot');
 
-load('L1_new\eta');
-load('L1_new\eta_ref');
-load('L1_new\nu');
-load('L1_new\alpha');
-load('L1_new\tau');
-load('L1_new\tau_dot');
-
-
 timestart=44;
 timeend=5*60+44;
 ts = 0.01;
@@ -181,7 +173,6 @@ xlabel('Time[s]')
 xlim([0 eta_iae(end,1)])
 grid on
 
-
 MaxIAE = max(e2_IAE)
 MaxIAEW = max(e2_IAEW)
 MaxIADC = max(e1_IADC)
@@ -192,35 +183,12 @@ ylabel('Y [m]')
 xlabel('Time [s]')
 
 tau_p = tau;
-
-load('L1_new2\eta');
-load('L1_new2\eta_ref');
-load('L1_new2\nu');
-load('L1_new2\alpha');
-load('L1_new2\tau');
-load('L1_new2\tau_dot');
-
-
-
-
-
 figure(5)
-
-sway1 = subplot(2,1,1);
-title('Estimate comparison in sway')
+sway = subplot(2,1,2);
 hold on
-plot(sway1,tau_p(1,1:timeend/ts-timestart/ts+1),tau_p(3,timestart/ts:timeend/ts),'b','LineWidth',1.5)
-ylabel('Original estimate')
+plot(sway,tau(1,1:timeend/ts-timestart/ts+1),tau_p(3,timestart/ts:timeend/ts),'b','LineWidth',1.5)
+ylabel('Sway thrust [N], old estimator')
 grid on
 hold off
-xlim([50 (tau(1,timeend/ts)-timestart+1)])
-ylim([-5.5 5.5])
-sway2 = subplot(2,1,2);
-hold on
-plot(sway2,tau(1,1:timeend/ts-timestart/ts+1),tau(3,timestart/ts:timeend/ts),'b','LineWidth',1.5)
-ylabel('Improved vel. estimate')
-grid on
-hold off
-xlim([50 (tau(1,timeend/ts)-timestart+1)])
-ylim([-5.5 5.5])
+xlim([0 (tau(1,timeend/ts)-timestart+1)])
 

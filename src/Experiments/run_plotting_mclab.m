@@ -38,22 +38,16 @@ load('L1\3\tau');
 load('L1\3\tau_dot');
 
 
-load('All\21\eta');
-load('All\21\eta_ref');
-load('All\21\nu');
-load('All\21\alpha');
-load('All\21\tau');
-load('All\21\tau_dot');
 
 
-load('L1\1\eta');
-load('L1\1\eta_ref');
-load('L1\1\nu');
-load('L1\1\alpha');
-load('L1\1\tau');
-load('L1\1\tau_dot');
 
 
+load('All\20\eta');
+load('All\20\eta_ref');
+load('All\20\nu');
+load('All\20\alpha');
+load('All\20\tau');
+load('All\20\tau_dot');
 %{
 time 
    start end
@@ -67,8 +61,14 @@ time
 
 %}
 
+load('L1_new2\eta');
+load('L1_new2\eta_ref');
+load('L1_new2\nu');
+load('L1_new2\alpha');
+load('L1_new2\tau');
+load('L1_new2\tau_dot');
 timestart=44;
-timeend=5*60 +44;
+timeend=5*60+44;
 ts = 0.01;
 simtime = timeend-timestart;
 

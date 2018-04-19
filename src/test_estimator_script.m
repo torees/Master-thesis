@@ -1,4 +1,4 @@
-
+close all;
 load('L1_new\eta');
 load('L1_new\nu');
 %load('1\tau');
@@ -41,8 +41,22 @@ sim('Mclab_estimator_fix')
 nu_hat = nu_hat';
 figure(8)
 hold on
+title(' Nu(1) -surge')
 plot(nu_ts.Time,nu_ts.Data(:,1))
 plot(nu_hat.Time,nu_hat.Data(:,1))
-legend('gammel estimator','ny estimator','Location','best')
+legend('Lab estimator','Tuned estimate','Location','best')
 
+figure(9)
+hold on
+title(' Nu(2) -sway')
+plot(nu_ts.Time,nu_ts.Data(:,2))
+plot(nu_hat.Time,nu_hat.Data(:,2))
+legend('Lab estimator','Tuned estimate','Location','best')
+
+figure(10)
+hold on
+title(' Nu(3) -yaw')
+plot(nu_ts.Time,nu_ts.Data(:,3))
+plot(nu_hat.Time,nu_hat.Data(:,3))
+legend('Lab estimator','Tuned estimate','Location','best')
 

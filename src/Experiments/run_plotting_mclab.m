@@ -85,6 +85,13 @@ load('L1_new\alpha');
 load('L1_new\tau');
 load('L1_new\tau_dot');
 
+load('L1_new2\eta');
+load('L1_new2\eta_ref');
+load('L1_new2\nu');
+load('L1_new2\alpha');
+load('L1_new2\tau');
+load('L1_new2\tau_dot');
+
 
 timestart=44;
 timeend=5*60+44;
@@ -186,10 +193,10 @@ MaxIAE = max(e2_IAE)
 MaxIAEW = max(e2_IAEW)
 MaxIADC = max(e1_IADC)
 
-figure(4)
-plot(eta(3,:))
-ylabel('Y [m]')
-xlabel('Time [s]')
+% figure(4)
+% plot(eta(3,:))
+% ylabel('Y [m]')
+% xlabel('Time [s]')
 
 tau_p = tau;
 

@@ -101,24 +101,8 @@ load('L1_highL2\tau');
 load('L1_highL2\tau_dot');
 
 
-
-
-load('L1_highL2\eta');
-load('L1_highL2\eta_ref');
-load('L1_highL2\nu');
-load('L1_highL2\alpha');
-load('L1_highL2\tau');
-load('L1_highL2\tau_dot');
-
-load('L1_lowL2\eta');
-load('L1_lowL2\eta_ref');
-load('L1_lowL2\nu');
-load('L1_lowL2\alpha');
-load('L1_lowL2\tau');
-load('L1_lowL2\tau_dot');
-
-timestart=97;
-timeend=length(eta)/100;
+timestart=44;
+timeend=5*60+44;
 ts = 0.01;
 simtime = timeend-timestart;
 
@@ -128,7 +112,7 @@ hold on
 xlabel('East [m]')
 ylabel('North [m]')
 pathtrackplotter_mclab(eta(2:4,timestart/ts:timeend/ts), 10, 3000, 'b', 'b')
-pathtrackplotter_mclab(eta_t(2:4,timestart/ts:timeend/ts), 10, 3000, '-.r', '--r')
+%pathtrackplotter_mclab(eta_t(2:4,timestart/ts:timeend/ts), 10, 3000, '-.r', '--r')
 h = zeros(2, 1);
 h(1) = plot(NaN,NaN,'b','LineWidth',1.5);
 h(2) = plot(NaN,NaN,'r','LineWidth',1.5);
@@ -224,34 +208,34 @@ MaxIADC = max(e1_IADC)
 
 tau_p = tau;
 
-% load('L1_new2\eta');
-% load('L1_new2\eta_ref');
-% load('L1_new2\nu');
-% load('L1_new2\alpha');
-% load('L1_new2\tau');
-% load('L1_new2\tau_dot');
-% 
-% 
-% 
-% 
-% 
-% figure(5)
-% 
-% sway1 = subplot(2,1,1);
-% title('Estimate comparison in sway')
-% hold on
-% plot(sway1,tau_p(1,1:timeend/ts-timestart/ts+1),tau_p(3,timestart/ts:timeend/ts),'b','LineWidth',1.5)
-% ylabel('Original estimate')
-% grid on
-% hold off
-% xlim([50 (tau(1,timeend/ts)-timestart+1)])
-% ylim([-5.5 5.5])
-% sway2 = subplot(2,1,2);
-% hold on
-% plot(sway2,tau(1,1:timeend/ts-timestart/ts+1),tau(3,timestart/ts:timeend/ts),'b','LineWidth',1.5)
-% ylabel('Improved vel. estimate')
-% grid on
-% hold off
-% xlim([50 (tau(1,timeend/ts)-timestart+1)])
-% ylim([-5.5 5.5])
+load('L1_new2\eta');
+load('L1_new2\eta_ref');
+load('L1_new2\nu');
+load('L1_new2\alpha');
+load('L1_new2\tau');
+load('L1_new2\tau_dot');
+
+
+
+
+
+figure(5)
+
+sway1 = subplot(2,1,1);
+title('Estimate comparison in sway')
+hold on
+plot(sway1,tau_p(1,1:timeend/ts-timestart/ts+1),tau_p(3,timestart/ts:timeend/ts),'b','LineWidth',1.5)
+ylabel('Original estimate')
+grid on
+hold off
+xlim([50 (tau(1,timeend/ts)-timestart+1)])
+ylim([-5.5 5.5])
+sway2 = subplot(2,1,2);
+hold on
+plot(sway2,tau(1,1:timeend/ts-timestart/ts+1),tau(3,timestart/ts:timeend/ts),'b','LineWidth',1.5)
+ylabel('Improved vel. estimate')
+grid on
+hold off
+xlim([50 (tau(1,timeend/ts)-timestart+1)])
+ylim([-5.5 5.5])
 

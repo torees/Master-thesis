@@ -118,10 +118,10 @@ tau_iae = tau_iae';
 tau_dot_iae = tau_dot_iae';
 
 sim('performancemetricsmclab')
-
+eta_iae1 = eta_iae;
 e1_IAE1 = e1_IAE;
 e1_IAEW1 = e1_IAEW;
-e1_IADC1 = e1_IAEW;
+e1_IADC1 = e1_IADC;
 
 eta_iae = eta2(:,timestart2/ts:timeend2/ts);
 eta_t_iae = eta_t2(:,timestart2/ts:timeend2/ts);
@@ -151,10 +151,10 @@ tau_dot_iae = tau_dot_iae';
 simtime1 = simtime2;
 
 sim('performancemetricsmclab')
-
+eta_iae2 = eta_iae;
 e1_IAE2 = e1_IAE;
 e1_IAEW2 = e1_IAEW;
-e1_IADC2 = e1_IAEW;
+e1_IADC2 = e1_IADC;
 
 %Do the figure of Metrics
 
@@ -162,26 +162,34 @@ p =figure(3);
 movegui(p,'center');
 IAE1 = subplot(3,1,1);
 hold on
-plot(IAE1,eta_iae(:,1),e1_IAE1,'Linewidth',1.5)
+plot(IAE1,eta_iae1(:,1),e1_IAE1,'Linewidth',1.5)
+plot(IAE1,eta_iae2(:,1),e1_IAE2,'Linewidth',1.5)
 ylabel('IAE')
 grid on
 title('Pose tracking metrics')
 hold off
-xlim([0 eta_iae(end,1)])
+xlim([0 eta_iae1(end,1)])
 IAEW1 = subplot(3,1,2);
 hold on
-plot(IAEW1,eta_iae(:,1),e1_IAEW1,'Linewidth',1.5)
+plot(IAEW1,eta_iae1(:,1),e1_IAEW1,'Linewidth',1.5)
+plot(IAEW1,eta_iae2(:,1),e1_IAEW2,'Linewidth',1.5)
 ylabel('IAEW')
-xlim([0 eta_iae(end,1)])
+legend('Old gain','New gain','Location','best')
+xlim([0 eta_iae1(end,1)])
 grid on
 IADC = subplot(3,1,3);
 hold on
-plot(IADC,eta_iae(:,1),e1_IADC1,'Linewidth',1.5)
+plot(IADC,eta_iae1(:,1),e1_IADC1,'Linewidth',1.5)
+plot(IADC,eta_iae2(:,1),e1_IADC2,'Linewidth',1.5)
 
 ylabel('IADC')
 xlabel('Time[s]')
 xlim([0 eta_iae(end,1)])
 grid on
+
+maxim = [max(e1_IAE1) max(e1_IAE2);
+        max(e1_IAEW1) max(e1_IAEW2);
+        max(e1_IADC1) max(e1_IADC2)]'
 
 
 

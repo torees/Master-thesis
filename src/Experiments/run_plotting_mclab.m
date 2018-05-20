@@ -1,126 +1,24 @@
 %% Load data
 clear all
 close all
-%{
-1: NPLV unconstrained
-2: NPNV unconstrained
-3: NPNV magnitude constraints = [1.1089 0.6387, 0.6176] 
-4: NPNV fast MRS, magnitude constraints = [1, 0.58, 0.56]
-5: NPLV fast MRS, magnitude constraints = [2, 1.5, 1]
-6: NPNV fast MRS, magnitude constraints = [2, 1.5, 1]
-7: NPLV slow MRS; magnitude constraints = [2, 1.5, 1]
-8: NPNV slow MRS, magnitude constraints = [2, 1.5, 1]
-9: NPLV, magnitude constraints = [2, 1.5, 1]
-10: NPLV, magnitude constraints = [2, 1.5, 1]
-%}
-
-
-
-load('L1\2\eta');
-load('L1\2\eta_ref');
-load('L1\2\nu');
-load('L1\2\alpha');
-load('L1\2\tau');
-load('L1\2\tau_dot');
-
-load('L1\4\eta');
-load('L1\4\eta_ref');
-load('L1\4\nu');
-load('L1\4\alpha');
-load('L1\4\tau');
-load('L1\4\tau_dot');
-
-load('L1\3\eta');
-load('L1\3\eta_ref');
-load('L1\3\nu');
-load('L1\3\alpha');
-load('L1\3\tau');
-load('L1\3\tau_dot');
 
 
 
 
 
+load('May_ex\L1_CG_normalL2\eta');
+load('May_ex\L1_CG_normalL2\eta_ref');
+load('May_ex\L1_CG_normalL2\eta_t');
+load('May_ex\L1_CG_normalL2\nu');
+load('May_ex\L1_CG_normalL2\alpha');
+load('May_ex\L1_CG_normalL2\tau');
+load('May_ex\L1_CG_normalL2\tau_dot');
+eta_t = eta_d;
 
-load('All\20\eta');
-load('All\20\eta_ref');
-load('All\20\nu');
-load('All\20\alpha');
-load('All\20\tau');
-load('All\20\tau_dot');
-%{
-time 
-   start end
-1: 44    405
-2: 57    389
-3: 68    417
-4: 40    401
-5: 49    395
-6: 43    373   
-7: 44    395
-
-%}
-
-load('L1_new2\eta');
-load('L1_new2\eta_ref');
-load('L1_new2\nu');
-load('L1_new2\alpha');
-load('L1_new2\tau');
-load('L1_new2\tau_dot');
-
-
-
-
-load('L1\1\eta');
-load('L1\1\eta_ref');
-load('L1\1\nu');
-load('L1\1\alpha');
-load('L1\1\tau');
-load('L1\1\tau_dot');
-
-load('L1_new\eta');
-load('L1_new\eta_ref');
-load('L1_new\nu');
-load('L1_new\alpha');
-load('L1_new\tau');
-load('L1_new\tau_dot');
-
-load('L1_new2\eta');
-load('L1_new2\eta_ref');
-load('L1_new2\nu');
-load('L1_new2\alpha');
-load('L1_new2\tau');
-load('L1_new2\tau_dot');
-
-
-load('L1_highL2\eta');
-load('L1_highL2\eta_ref');
-load('L1_highL2\nu');
-load('L1_highL2\alpha');
-load('L1_highL2\tau');
-load('L1_highL2\tau_dot');
-
-
-
-
-load('L1_highL2\eta');
-load('L1_highL2\eta_ref');
-load('L1_highL2\nu');
-load('L1_highL2\alpha');
-load('L1_highL2\tau');
-load('L1_highL2\tau_dot');
-
-load('L1_lowL2\eta');
-load('L1_lowL2\eta_ref');
-load('L1_lowL2\nu');
-load('L1_lowL2\alpha');
-load('L1_lowL2\tau');
-load('L1_lowL2\tau_dot');
-
-timestart=97;
+timestart=76;
 timeend=length(eta)/100;
 ts = 0.01;
-simtime = timeend-timestart;
+simtime1 = timeend-timestart;
 
 %% Pathplotter
 figure
@@ -132,7 +30,7 @@ pathtrackplotter_mclab(eta_t(2:4,timestart/ts:timeend/ts), 10, 3000, '-.r', '--r
 h = zeros(2, 1);
 h(1) = plot(NaN,NaN,'b','LineWidth',1.5);
 h(2) = plot(NaN,NaN,'r','LineWidth',1.5);
-legend(h, 'CSAD','Reference','Location','best');
+legend(h, 'L1-CG','Reference','Location','best');
 axis equal
 
 %% Tau
@@ -213,45 +111,8 @@ xlim([0 eta_iae(end,1)])
 grid on
 
 
-MaxIAE = max(e2_IAE)
-MaxIAEW = max(e2_IAEW)
+MaxIAE = max(e1_IAE)
+MaxIAEW = max(e1_IAEW)
 MaxIADC = max(e1_IADC)
 
-% figure(4)
-% plot(eta(3,:))
-% ylabel('Y [m]')
-% xlabel('Time [s]')
-
-tau_p = tau;
-
-% load('L1_new2\eta');
-% load('L1_new2\eta_ref');
-% load('L1_new2\nu');
-% load('L1_new2\alpha');
-% load('L1_new2\tau');
-% load('L1_new2\tau_dot');
-% 
-% 
-% 
-% 
-% 
-% figure(5)
-% 
-% sway1 = subplot(2,1,1);
-% title('Estimate comparison in sway')
-% hold on
-% plot(sway1,tau_p(1,1:timeend/ts-timestart/ts+1),tau_p(3,timestart/ts:timeend/ts),'b','LineWidth',1.5)
-% ylabel('Original estimate')
-% grid on
-% hold off
-% xlim([50 (tau(1,timeend/ts)-timestart+1)])
-% ylim([-5.5 5.5])
-% sway2 = subplot(2,1,2);
-% hold on
-% plot(sway2,tau(1,1:timeend/ts-timestart/ts+1),tau(3,timestart/ts:timeend/ts),'b','LineWidth',1.5)
-% ylabel('Improved vel. estimate')
-% grid on
-% hold off
-% xlim([50 (tau(1,timeend/ts)-timestart+1)])
-% ylim([-5.5 5.5])
 

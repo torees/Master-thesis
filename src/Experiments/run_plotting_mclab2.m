@@ -11,12 +11,12 @@ close all
 %start 61
 
 
-load('CCTA_mai\NPNV_magnitude\eta');
-load('CCTA_mai\NPNV_magnitude\eta_ref');
-load('CCTA_mai\NPNV_magnitude\nu');
-load('CCTA_mai\NPNV_magnitude\alpha');
-load('CCTA_mai\NPNV_magnitude\tau');
-load('CCTA_mai\NPNV_magnitude\tau_dot');
+load('May_ex\NPNV_unconstrained\eta');
+load('May_ex\NPNV_unconstrained\eta_ref');
+load('May_ex\NPNV_unconstrained\nu');
+load('May_ex\NPNV_unconstrained\alpha');
+load('May_ex\NPNV_unconstrained\tau');
+load('May_ex\NPNV_unconstrained\tau_dot');
 
 eta1 = eta;
 eta_t1 = eta_t;
@@ -24,18 +24,24 @@ nu1 = nu;
 tau1 = tau;
 tau_dot1 = tau_dot;
 
-timestart1=61;
+timestart1=77;
 timeend1=length(eta)/100;
-ts = 0.01;
 simtime1 = timeend1-timestart1;
 
+% L1_CG_6highL2 155
+% L1_MRS_highmag 77
+% L1_MRS_lowmag 101
+% L1_regular 126  This is probably a CG
+% L1_regular_test2 92  This is probably a CG
+% L1_unconstrained 84
 
-load('CCTA_mai\NPNV_mrs\eta');
-load('CCTA_mai\NPNV_mrs\eta_ref');
-load('CCTA_mai\NPNV_mrs\nu');
-load('CCTA_mai\NPNV_mrs\alpha');
-load('CCTA_mai\NPNV_mrs\tau');
-load('CCTA_mai\NPNV_mrs\tau_dot');
+load('May_ex\L1_MRS_lowmag\eta');
+load('May_ex\L1_MRS_lowmag\eta_t');
+load('May_ex\L1_MRS_lowmag\nu');
+load('May_ex\L1_MRS_lowmag\alpha');
+load('May_ex\L1_MRS_lowmag\tau');
+load('May_ex\L1_MRS_lowmag\tau_dot');
+eta_t=eta_d;
 
 eta2 = eta;
 eta_t2 = eta_t;
@@ -43,8 +49,8 @@ nu2 = nu;
 tau2 = tau;
 tau_dot2 = tau_dot;
 
-timestart2=97;
-timeend2=length(eta)/100;
+timestart2=101;
+timeend2=uint32(length(eta)/100-1);
 ts = 0.01;
 simtime2 = timeend2-timestart2;
 
@@ -75,7 +81,7 @@ plot(surge,tau2(1,1:timeend2/ts-timestart2/ts+1),tau2(2,timestart2/ts:timeend2/t
 ylabel('\tau_1 [N]')
 grid on
 hold off
-xlim([0 (tau1(1,timeend1/ts)-timestart1+1)])
+xlim([0 (tau2(1,timeend2/ts)-timestart2+1)])
 sway = subplot(3,1,2);
 hold on
 plot(sway,tau1(1,1:timeend1/ts-timestart1/ts+1),tau1(3,timestart1/ts:timeend1/ts),'b','LineWidth',1.5)
@@ -84,7 +90,7 @@ ylabel('\tau_2 [N]')
 legend('NPNV','NPNV-MRS','Location','best')
 grid on
 hold off
-xlim([0 (tau1(1,timeend1/ts)-timestart1+1)])
+xlim([0 (tau2(1,timeend2/ts)-timestart2+1)])
 yaw = subplot(3,1,3);
 hold on
 plot(yaw,tau1(1,1:timeend1/ts-timestart1/ts+1),tau1(4,timestart1/ts:timeend1/ts),'b','LineWidth',1.5)
@@ -92,7 +98,7 @@ plot(yaw,tau2(1,1:timeend2/ts-timestart2/ts+1),tau2(4,timestart2/ts:timeend2/ts)
 ylabel('\tau_3 [Nm]')
 grid on
 xlabel('Time [s]')
-xlim([0 (tau1(1,timeend1/ts)-timestart1+1)])
+xlim([0 (tau2(1,timeend2/ts)-timestart2+1)])
 
 %% Performance metrics IAE+IAEW+IADC
 eta_iae = eta1(:,timestart1/ts:timeend1/ts);
@@ -100,7 +106,7 @@ eta_t_iae = eta_t1(:,timestart1/ts:timeend1/ts);
 nu_iae = nu1(:,timestart1/ts:timeend1/ts);
 tau_iae = tau1(1:4,timestart1/ts:timeend1/ts);
 tau_dot_iae = tau_dot1(1:4,timestart1/ts:timeend1/ts);
-alpha_iae = alpha(:,timestart1/ts:timeend1/ts);
+%alpha_iae = alpha(:,timestart1/ts:timeend1/ts);
 
  eta_iae(1,1) = 0;
 
@@ -112,12 +118,12 @@ eta_t_iae(1,:) = eta_iae(1,:);
 nu_iae(1,:) = eta_iae(1,:);
 tau_iae(1,:) = eta_iae(1,:);
 tau_dot_iae(1,:) = eta_iae(1,:);
-alpha_iae(1,:) = eta_iae(1,:);  
+%alpha_iae(1,:) = eta_iae(1,:);  
 
 eta_iae = eta_iae';
 eta_t_iae = eta_t_iae';
 nu_iae = nu_iae';
-alpha_iae = alpha_iae';
+%alpha_iae = alpha_iae';
 tau_iae = tau_iae';
 tau_dot_iae = tau_dot_iae';
 
@@ -132,7 +138,7 @@ eta_t_iae = eta_t2(:,timestart2/ts:timeend2/ts);
 nu_iae = nu2(:,timestart2/ts:timeend2/ts);
 tau_iae = tau2(1:4,timestart2/ts:timeend2/ts);
 tau_dot_iae = tau_dot2(1:4,timestart2/ts:timeend2/ts);
-alpha_iae = alpha(:,timestart2/ts:timeend2/ts);
+%alpha_iae = alpha(:,timestart2/ts:timeend2/ts);
 
  eta_iae(1,1) = 0;
 
@@ -144,15 +150,15 @@ eta_t_iae(1,:) = eta_iae(1,:);
 nu_iae(1,:) = eta_iae(1,:);
 tau_iae(1,:) = eta_iae(1,:);
 tau_dot_iae(1,:) = eta_iae(1,:);
-alpha_iae(1,:) = eta_iae(1,:);  
+%alpha_iae(1,:) = eta_iae(1,:);  
 
 eta_iae = eta_iae';
 eta_t_iae = eta_t_iae';
 nu_iae = nu_iae';
-alpha_iae = alpha_iae';
+%alpha_iae = alpha_iae';
 tau_iae = tau_iae';
 tau_dot_iae = tau_dot_iae';
-simtime1 = simtime2;
+simtime1 = double(simtime2);
 
 sim('performancemetricsmclab')
 eta_iae2 = eta_iae;
@@ -172,23 +178,22 @@ ylabel('IAE')
 grid on
 title('Pose tracking metrics')
 hold off
-xlim([0 eta_iae1(end,1)])
+xlim([0 eta_iae2(end,1)])
 IAEW1 = subplot(3,1,2);
 hold on
 plot(IAEW1,eta_iae1(:,1),e1_IAEW1,'Linewidth',1.5)
 plot(IAEW1,eta_iae2(:,1),e1_IAEW2,'Linewidth',1.5)
 ylabel('IAEW')
 legend('NPNV','NPNV-MRS','Location','best')
-xlim([0 eta_iae1(end,1)])
+xlim([0 eta_iae2(end,1)])
 grid on
 IADC = subplot(3,1,3);
 hold on
 plot(IADC,eta_iae1(:,1),e1_IADC1,'Linewidth',1.5)
 plot(IADC,eta_iae2(:,1),e1_IADC2,'Linewidth',1.5)
-
 ylabel('IADC')
 xlabel('Time[s]')
-xlim([0 eta_iae(end,1)])
+xlim([0 eta_iae2(end,1)])
 grid on
 
 

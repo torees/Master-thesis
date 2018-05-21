@@ -11,12 +11,23 @@ close all
 %start 61
 
 
-load('May_ex\NPNV_unconstrained\eta');
-load('May_ex\NPNV_unconstrained\eta_ref');
-load('May_ex\NPNV_unconstrained\nu');
-load('May_ex\NPNV_unconstrained\alpha');
-load('May_ex\NPNV_unconstrained\tau');
-load('May_ex\NPNV_unconstrained\tau_dot');
+% load('May_ex\NPNV_unconstrained\eta');
+% load('May_ex\NPNV_unconstrained\eta_ref');
+% load('May_ex\NPNV_unconstrained\nu');
+% load('May_ex\NPNV_unconstrained\alpha');
+% load('May_ex\NPNV_unconstrained\tau');
+% load('May_ex\NPNV_unconstrained\tau_dot');
+
+load('All\1\eta');
+eta=ans;
+load('All\1\eta_ref');
+eta_t=ans;
+load('All\1\nu');
+nu=ans;
+load('All\1\alpha');
+
+load('All\1\tau');
+tau=ans;
 
 eta1 = eta;
 eta_t1 = eta_t;
@@ -24,21 +35,23 @@ nu1 = nu;
 tau1 = tau;
 tau_dot1 = tau_dot;
 
-timestart1=77;
+timestart1=62;
 timeend1=length(eta)/100;
-ts = 0.01;
 simtime1 = timeend1-timestart1;
 
 % L1_CG_6highL2 155
+% L1_MRS_highmag 77
+% L1_MRS_lowmag 101
+% L1_regular 126  This is probably a CG
+% L1_regular_test2 92  This is probably a CG
+% L1_unconstrained 84
 
-
-
-load('May_ex\L1_MRS_high\eta');
-load('May_ex\L1_CG_6highL2\eta_t');
-load('May_ex\L1_CG_6highL2\nu');
-load('May_ex\L1_CG_6highL2\alpha');
-load('May_ex\L1_CG_6highL2\tau');
-load('May_ex\L1_CG_6highL2\tau_dot');
+load('All\1\eta');
+load('All\1\eta_t');
+load('All\1\nu');
+load('All\1\alpha');
+load('All\1\tau');
+load('All\1\tau_dot');
 eta_t=eta_d;
 
 eta2 = eta;
@@ -47,8 +60,8 @@ nu2 = nu;
 tau2 = tau;
 tau_dot2 = tau_dot;
 
-timestart2=155;
-timeend2=length(eta)/100;
+timestart2=101;
+timeend2=uint32(length(eta)/100-1);
 ts = 0.01;
 simtime2 = timeend2-timestart2;
 
@@ -104,7 +117,7 @@ eta_t_iae = eta_t1(:,timestart1/ts:timeend1/ts);
 nu_iae = nu1(:,timestart1/ts:timeend1/ts);
 tau_iae = tau1(1:4,timestart1/ts:timeend1/ts);
 tau_dot_iae = tau_dot1(1:4,timestart1/ts:timeend1/ts);
-alpha_iae = alpha(:,timestart1/ts:timeend1/ts);
+%alpha_iae = alpha(:,timestart1/ts:timeend1/ts);
 
  eta_iae(1,1) = 0;
 
@@ -116,12 +129,12 @@ eta_t_iae(1,:) = eta_iae(1,:);
 nu_iae(1,:) = eta_iae(1,:);
 tau_iae(1,:) = eta_iae(1,:);
 tau_dot_iae(1,:) = eta_iae(1,:);
-alpha_iae(1,:) = eta_iae(1,:);  
+%alpha_iae(1,:) = eta_iae(1,:);  
 
 eta_iae = eta_iae';
 eta_t_iae = eta_t_iae';
 nu_iae = nu_iae';
-alpha_iae = alpha_iae';
+%alpha_iae = alpha_iae';
 tau_iae = tau_iae';
 tau_dot_iae = tau_dot_iae';
 
@@ -136,7 +149,7 @@ eta_t_iae = eta_t2(:,timestart2/ts:timeend2/ts);
 nu_iae = nu2(:,timestart2/ts:timeend2/ts);
 tau_iae = tau2(1:4,timestart2/ts:timeend2/ts);
 tau_dot_iae = tau_dot2(1:4,timestart2/ts:timeend2/ts);
-alpha_iae = alpha(:,timestart2/ts:timeend2/ts);
+%alpha_iae = alpha(:,timestart2/ts:timeend2/ts);
 
  eta_iae(1,1) = 0;
 
@@ -148,15 +161,15 @@ eta_t_iae(1,:) = eta_iae(1,:);
 nu_iae(1,:) = eta_iae(1,:);
 tau_iae(1,:) = eta_iae(1,:);
 tau_dot_iae(1,:) = eta_iae(1,:);
-alpha_iae(1,:) = eta_iae(1,:);  
+%alpha_iae(1,:) = eta_iae(1,:);  
 
 eta_iae = eta_iae';
 eta_t_iae = eta_t_iae';
 nu_iae = nu_iae';
-alpha_iae = alpha_iae';
+%alpha_iae = alpha_iae';
 tau_iae = tau_iae';
 tau_dot_iae = tau_dot_iae';
-simtime1 = simtime2;
+simtime1 = double(simtime2);
 
 sim('performancemetricsmclab')
 eta_iae2 = eta_iae;

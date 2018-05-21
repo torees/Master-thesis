@@ -4,18 +4,29 @@ close all
 
 
 
+%All\19
 
+% load('May_ex\L1_CG_normalL2\eta');
+% load('May_ex\L1_CG_normalL2\eta_ref');
+% load('May_ex\L1_CG_normalL2\eta_t');
+% load('May_ex\L1_CG_normalL2\nu');
+% load('May_ex\L1_CG_normalL2\alpha');
+% load('May_ex\L1_CG_normalL2\tau');
+% load('May_ex\L1_CG_normalL2\tau_dot');
 
-load('May_ex\L1_CG_normalL2\eta');
-load('May_ex\L1_CG_normalL2\eta_ref');
-load('May_ex\L1_CG_normalL2\eta_t');
-load('May_ex\L1_CG_normalL2\nu');
-load('May_ex\L1_CG_normalL2\alpha');
-load('May_ex\L1_CG_normalL2\tau');
-load('May_ex\L1_CG_normalL2\tau_dot');
-eta_t = eta_d;
+load('All\1\eta');
+eta=ans;
+load('All\1\eta_ref');
+eta_t=ans;
+load('All\1\nu');
+nu=ans;
+load('All\1\alpha');
 
-timestart=76;
+load('All\1\tau');
+tau=ans;
+%eta_t = eta_d;
+
+timestart=60;
 timeend=length(eta)/100;
 ts = 0.01;
 simtime1 = timeend-timestart;
@@ -26,11 +37,11 @@ hold on
 xlabel('East [m]')
 ylabel('North [m]')
 pathtrackplotter_mclab(eta(2:4,timestart/ts:timeend/ts), 10, 3000, 'b', 'b')
-pathtrackplotter_mclab(eta_t(2:4,timestart/ts:timeend/ts), 10, 3000, '-.r', '--r')
+pathtrackplotter_mclab_ref(eta_t(2:4,timestart/ts:timeend/ts), 10, 3000, '-.r', '--r')
 h = zeros(2, 1);
 h(1) = plot(NaN,NaN,'b','LineWidth',1.5);
 h(2) = plot(NaN,NaN,'r','LineWidth',1.5);
-legend(h, 'L1-CG','Reference','Location','best');
+legend(h, 'NP-NV','Reference','Location','best');
 axis equal
 
 %% Tau

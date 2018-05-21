@@ -11,12 +11,23 @@ close all
 %start 61
 
 
-load('May_ex\NPNV_unconstrained\eta');
-load('May_ex\NPNV_unconstrained\eta_ref');
-load('May_ex\NPNV_unconstrained\nu');
-load('May_ex\NPNV_unconstrained\alpha');
-load('May_ex\NPNV_unconstrained\tau');
-load('May_ex\NPNV_unconstrained\tau_dot');
+% load('May_ex\NPNV_unconstrained\eta');
+% load('May_ex\NPNV_unconstrained\eta_ref');
+% load('May_ex\NPNV_unconstrained\nu');
+% load('May_ex\NPNV_unconstrained\alpha');
+% load('May_ex\NPNV_unconstrained\tau');
+% load('May_ex\NPNV_unconstrained\tau_dot');
+
+load('All\1\eta');
+eta=ans;
+load('All\1\eta_ref');
+eta_t=ans;
+load('All\1\nu');
+nu=ans;
+load('All\1\alpha');
+
+load('All\1\tau');
+tau=ans;
 
 eta1 = eta;
 eta_t1 = eta_t;
@@ -24,7 +35,7 @@ nu1 = nu;
 tau1 = tau;
 tau_dot1 = tau_dot;
 
-timestart1=77;
+timestart1=62;
 timeend1=length(eta)/100;
 simtime1 = timeend1-timestart1;
 
@@ -35,12 +46,12 @@ simtime1 = timeend1-timestart1;
 % L1_regular_test2 92  This is probably a CG
 % L1_unconstrained 84
 
-load('May_ex\L1_MRS_lowmag\eta');
-load('May_ex\L1_MRS_lowmag\eta_t');
-load('May_ex\L1_MRS_lowmag\nu');
-load('May_ex\L1_MRS_lowmag\alpha');
-load('May_ex\L1_MRS_lowmag\tau');
-load('May_ex\L1_MRS_lowmag\tau_dot');
+load('All\1\eta');
+load('All\1\eta_t');
+load('All\1\nu');
+load('All\1\alpha');
+load('All\1\tau');
+load('All\1\tau_dot');
 eta_t=eta_d;
 
 eta2 = eta;

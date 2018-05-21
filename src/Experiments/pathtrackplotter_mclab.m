@@ -7,7 +7,7 @@ y = eta_plot(:,2);
 psi = eta_plot(:,3);
 
 plot(y,x,color2,'LineWidth',1.5)
-L=200/6;
+L=200/12;
 tnow=0;
 
 for now=1:dec:length(x)

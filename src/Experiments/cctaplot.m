@@ -3,16 +3,29 @@ clear all
 close all
 
 
-load('All\1\eta');
-eta=ans;
-load('All\1\eta_ref');
-eta_t=ans;
-load('All\1\nu');
-nu=ans;
+% load('All\1\eta');            LOad the unconstrained NPNV for labsession1
+% eta=ans;
+% load('All\1\eta_ref');
+% eta_t=ans;
+% load('All\1\nu');
+% nu=ans;
+% 
+% 
+% load('All\1\tau');
+% tau=ans; timestart1 = 62;
+
+load('May_ex\NPNV_unconstrained\eta');
+load('May_ex\NPNV_unconstrained\eta_ref');
+load('May_ex\NPNV_unconstrained\eta_t');
+load('May_ex\NPNV_unconstrained\nu');
+load('May_ex\NPNV_unconstrained\alpha');
+load('May_ex\NPNV_unconstrained\tau');
+load('May_ex\NPNV_unconstrained\tau_dot');
 
 
-load('All\1\tau');
-tau=ans;
+%eta_t = eta_d;
+
+
 
 eta1 = eta;
 eta_t1 = eta_t;
@@ -20,7 +33,7 @@ nu1 = nu;
 tau1 = tau;
 %tau_dot1 = tau_dot;
 
-timestart1=62;
+timestart1=75;
 timeend1=length(eta)/100;
 simtime1 = timeend1-timestart1;
 
@@ -35,18 +48,19 @@ L1u = "L1 unconstrained";
 L1mr = "L1-MRS";
 L1l = "L1-lowpass";
 II = "I&I";
-IImr = "I&I-lowpass";
-type =L1u;
-pref = "L1";
+IIl = "I&I-lowpass";
+IIm = "I&I-MRS";
+type =L1mr;
+pref = "L1mr";
 filename = 'L1MRS2path';
 filename2 ='L1MRS2tau';
 filename3 = 'L1MRS2metric';
 
-load('L1\4\eta');
-load('L1\4\eta_ref');
-load('L1\4\nu');
-load('L1\4\alpha');
-load('L1\4\tau');
+load('May_ex\L1_MRS_highmag\eta');
+load('May_ex\L1_MRS_highmag\eta_ref');
+load('May_ex\L1_MRS_highmag\nu');
+load('May_ex\L1_MRS_highmag\alpha');
+load('May_ex\L1_MRS_highmag\tau');
 
 %L1 1 60
 %L1 2 LP 70
@@ -58,9 +72,9 @@ nu2 = nu;
 tau2 = tau;
 
 
-timestart2=89;
+timestart2=78;
 timeend2=uint32(length(eta)/100-1);
-timeend2=340;
+%timeend2=342;
 ts = 0.01;
 simtime2 = timeend2-timestart2;
 
@@ -111,7 +125,7 @@ ylabel('\tau_2 [N]')
 legend('NP-NV',type,'Location','none')
 grid on
 hold off
-ylim([-5 5])
+ylim([-6 6])
 xlim([0 (tau2(1,timeend2/ts)-timestart2+1)])
 yaw = subplot(3,1,3);
 hold on

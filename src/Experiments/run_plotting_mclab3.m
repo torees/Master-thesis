@@ -6,27 +6,18 @@ close all
 
 %All\19
 
-% load('May_ex\L1_CG_normalL2\eta');
-% load('May_ex\L1_CG_normalL2\eta_ref');
-% load('May_ex\L1_CG_normalL2\eta_t');
-% load('May_ex\L1_CG_normalL2\nu');
-% load('May_ex\L1_CG_normalL2\alpha');
-% load('May_ex\L1_CG_normalL2\tau');
-% load('May_ex\L1_CG_normalL2\tau_dot');
+load('May_ex\NPNV_unconstrained\eta');
+load('May_ex\NPNV_unconstrained\eta_ref');
+load('May_ex\NPNV_unconstrained\eta_t');
+load('May_ex\NPNV_unconstrained\nu');
+load('May_ex\NPNV_unconstrained\alpha');
+load('May_ex\NPNV_unconstrained\tau');
+load('May_ex\NPNV_unconstrained\tau_dot');
 
-load('All\1\eta');
-eta=ans;
-load('All\1\eta_ref');
-eta_t=ans;
-load('All\1\nu');
-nu=ans;
-load('All\1\alpha');
 
-load('All\1\tau');
-tau=ans;
 %eta_t = eta_d;
 
-timestart=62;
+timestart=75;
 timeend=length(eta)/100;
 ts = 0.01;
 simtime1 = timeend-timestart;

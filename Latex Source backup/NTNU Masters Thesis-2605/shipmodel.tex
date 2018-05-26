@@ -1,0 +1,172 @@
+
+\subsection{Model Definition}
+Normally, vessel dynamics are described with 6 degrees-of-freedom, with surge, sway and yaw describing position in the Cartesian 3-dimensional space, and roll, pitch and yaw as orientation variables around the axes. For a metacentrically stable ship in longitude and latitude, roll and pitch motions can be assumed zero, and since the ship is a surface vessel, we discard vertical position changes(the vessel is always at heave = 0). Thus, the maneuvering model is reduced to 3 DOF.
+
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=0.75\textwidth]{fig/ship3dof.jpg}
+    \caption{Ship degrees of freedom. Figure from \cite{ship3dof}}
+    \label{fig:CSAD}
+\end{figure}
+
+
+The motion of a ship can be represented by the pose vector $\boldsymbol{\eta} = \left[ x ,y,\psi\right]^{\top} \in \mathbb{R}^2\times \mathbb{S}$ and the velocity vector $\boldsymbol{\nu} =\left[ u,v,r\right]^{\top}\in \mathbb{R}^3$.  Here, $(x,y)$ represents the Cartesian position in the local earth-fixed reference frame, $\psi$ is the yaw angle, $(u,v)$ represents the body-fixed linear velocities and $r$ is the yaw rate. The 3 DOF dynamics of a ship can then be stated based on the approach in \cite{fossen2011handbook} as:
+\begin{align}
+\boldsymbol{\dot{\eta}} &= \boldsymbol{R}(\psi)\boldsymbol{\nu}\label{eq:eta}\\
+\boldsymbol{M\dot{\nu}}&+\boldsymbol{C(\nu)\nu}+\boldsymbol{D(\nu)\nu}=\boldsymbol{\tau},%+\mathbf{R}^{\top}(\psi)\boldsymbol{w},%+\omega^*},
+\label{eq:nu}
+\end{align}
+where $\boldsymbol{M} \in \mathbb{R}^{3\times 3}$, $\boldsymbol{C(\nu)} \in \mathbb{R}^{3\times 3}$, $\boldsymbol{D(\nu)} \in \mathbb{R}^{3\times 3}$ and $\boldsymbol{\tau}= [\tau_1,\tau_2,\tau_3]^{\top}$
+represent the inertia matrix, Coriolis and centripetal matrix, damping matrix and control input vector, respectively. The rotation matrix $\boldsymbol{R}(\psi) \in SO(3)$ is given by
+\begin{align}
+\boldsymbol{R}(\psi) &= \begin{bmatrix}
+\cos(\psi) & -\sin(\psi) & 0\\
+\sin(\psi) & \cos(\psi) & 0\\
+0 & 0 & 1
+\end{bmatrix}.
+\end{align}
+The system matrices are assumed to satisfy the properties $\boldsymbol{M} = \boldsymbol{M}{}^{\top}>0$, $\boldsymbol{C}(\boldsymbol{\nu}) = -\boldsymbol{C}(\boldsymbol{\nu})^{\top}$ and $\boldsymbol{D}(\boldsymbol{\nu}) >0$. 
+%\\
+%The parameter for the model ship CyberShip II from \cite{Skjetne2005} will be used populate the matrices for simulation purposes.\\
+
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=0.65\textwidth]{fig/csad.jpg}
+    \caption{C/S Inocean Cat I Drillship in the MC-lab.}
+    \label{fig:CSAD}
+\end{figure}
+
+
+The model and parameters of the model-scale ship C/S Inocean Cat I Drillship \cite{bjorno}, hereafter abbreviated CSAD, is shown in Fig. \ref{fig:CSAD} and will be used in this thesis. CSAD is a 1:90 scale replica of a supply ship, with a length of $L = 2.578 ~\si{\meter}$.
+The inertia matrix is given as
+\begin{align}
+\boldsymbol{M} = \boldsymbol{M}_{RB}+\boldsymbol{M}_{A},
+\end{align}
+where
+\begin{align}
+\boldsymbol{M}_{RB} &= \begin{bmatrix}
+m & 0 & 0\\
+0 & m & m x_g\\
+0 & m x_g & I_z
+\end{bmatrix}\\
+ \boldsymbol{M}_A &= \begin{bmatrix}
+-X_{\dot{u}} & 0 & 0\\
+0 & -Y_{\dot{v}} & -Y_{\dot{r}}\\
+0 & -N_{\dot{v}} & -N_{\dot{r}}
+\end{bmatrix}.
+\end{align}
+CSAD has a mass of $m = 127.92 ~\si{\kilo\gram}$ and inertia about $z$-axis in the BODY-frame $I_z =  61.987 ~\si{\kilo\gram\meter\squared}$, while $x_g =  0.00375 ~\si{\meter}$ is the distance along the $x$-axis in the body frame from the centre of gravity. The full list of parameter values are shown in Table \ref{CSADParameters}.
+
+The Coriolis and centripetal matrix is given as
+\begin{equation}
+\boldsymbol{C}(\boldsymbol{\nu}) = \boldsymbol{C_{RB}}(\boldsymbol{\nu}) + \boldsymbol{C_A}(\boldsymbol{\nu}),
+\end{equation}
+where
+\begin{equation}
+\boldsymbol{C_{RB}}(\boldsymbol{\nu}) = 
+\begin{bmatrix}
+0 & 0 & -m(x_gr + v)\\
+0 & 0 & mu\\
+m(x_gr + v) & -mu & 0
+\end{bmatrix}
+\end{equation}
+\begin{equation}
+\boldsymbol{C_{A}}(\boldsymbol{\nu}) = 
+\begin{bmatrix}
+0 & 0 & -c_{A,13}(\boldsymbol{\nu})\\
+0 & 0 & c_{A,23}(\boldsymbol{\nu})\\
+c_{A,13}(\boldsymbol{\nu}) & -c_{A,23}(\boldsymbol{\nu}) & 0
+\end{bmatrix},
+\end{equation}
+where
+\begin{align}
+c_{A,13}(\boldsymbol{\nu}) &= -Y_{\dot{v}}v - Y_{\dot{r}}r\\
+c_{A,23}(\boldsymbol{\nu}) &= -X_{\dot{u}}u.
+\end{align}
+\newline
+Finally, the damping matrix $\boldsymbol{D}(\boldsymbol{\nu})$ is given as
+\begin{equation}
+\label{D1_nomod}
+\boldsymbol{D}(\boldsymbol{\nu}) = \boldsymbol{D_L} + \boldsymbol{D_{NL}}(\boldsymbol{\nu}),
+\end{equation}
+where
+\begin{equation}
+\label{D_L_eq}
+\boldsymbol{D_L} = 
+\begin{bmatrix}
+-X_u & 0 & 0\\
+0 & -Y_v & -Y_r\\
+0 & -N_v & -N_r
+\end{bmatrix}
+\end{equation}
+\begin{equation}
+\boldsymbol{D_{NL}}(\boldsymbol{\nu}) = 
+\begin{bmatrix}
+d_{NL,11}(\nu) & 0 & 0\\
+0 & d_{NL,22}(\boldsymbol{\nu}) & d_{NL,23}(\boldsymbol{\nu})\\
+0 & d_{NL,32}(\boldsymbol{\nu}) & d_{NL,33}(\boldsymbol{\nu})
+\end{bmatrix},
+\end{equation}
+where
+\begin{align}
+d_{NL,11}(\boldsymbol{\nu}) &= -X_{|u|u}|u| - X_{uuu}u^2\\
+d_{NL,22}(\boldsymbol{\nu}) &= -Y_{|v|v}|v|-Y_{|r|v}|r| - Y_{vvv}v^2\\
+d_{NL,23}(\boldsymbol{\nu}) &= -Y_{|r|r}|r|-Y_{|v|r}|r| - Y_{rrr}r^2 - Y_{ur}u\\
+d_{NL,32}(\boldsymbol{\nu}) &= -N_{|v|v}|v|-N_{|r|v}|v| - N_{vvv}v^2 - N_{uv}u\\
+d_{NL,33}(\boldsymbol{\nu}) &= -N_{|r|r}|r|-N_{|v|r}|v| - N_{rrr}r^2 - N_{ur}u.
+\end{align}
+ 
+Where, in order to successfully accommodate for the Munk moment, the damping terms
+\begin{align}
+Y_{ur} &= -X_{\dot{u}}\\
+N_{uv} &= - (Y_{\dot{v}} - X_{\dot{u}})\\
+N_{ur} &= -Y_{\dot{r}},
+\end{align}
+which, when multiplied with $u$, are linearly increasing with the forward speed, are added to the damping matrix. This will result in a more physically realistic model behaviour, and will ensure that the model will not give rise to a physically impossible motion. \\
+\begin{table}[h!]
+\centering 
+\begin{tabular}{| p{2cm} | p{2cm} | p{3cm} | p{2cm}|}
+\hline
+\textbf{Parameter}& \textbf{Bj\o rn\o2017 parameters \cite{bjørnø2017}} &  \textbf{New parameters} &\textbf{Unit}   \\ \hline\hline
+$L$ & $2.578$ & $2.578$ & $m$  \\ \hline
+$m$ & $127.92$ &127.92 & $kg$ \\ \hline
+$x_g$ & $0$ & $\boldsymbol{0.0375}$ & $m$  \\ \hline
+$I_z$ & $62$& 62 & $kgm^2$  \\ \hline
+$X_{\dot{u}}$ &$3.26$& $\boldsymbol{-3.26}$ & $kg $ \\ \hline
+$Y_{\dot{v}}$ &$28.9$& $\boldsymbol{-28.9}$ & $kg$  \\ \hline
+$Y_{\dot{r}}$ & $0.525$ & $\boldsymbol{-0.525}$ & $kgm$  \\ \hline
+$N_{\dot{v}}$ &$0.157$ &$\boldsymbol{-0.157}$ & $kgm$ \\ \hline
+$N_{\dot{r}}$ & $14$ &$\boldsymbol{-14}$ & $kgm^2$  \\ \hline
+$X_u$ & $ -2.33$ &-2.33 &$kg/s$  \\ \hline
+$X_{|u|u}$ & $0$ &0& $kg/m $ \\ \hline
+$X_{uuu}$ & $-8.56$ & -8.56&$kgs/m^2$  \\ \hline
+$Y_v$ & -4.67 &-4.67 &$kg/s$\\ \hline
+$Y_{|v|v}$ & $0.398$ & $\boldsymbol{-0.398}$ & $kg/m$\\ \hline
+$Y_{vvv}$ & $-313$ & -313& $kgs/m^2$\\ \hline
+$N_v$ & $0$ & 0 &$kgm/s$\\ \hline
+$N_{|v|v}$ & $-0.209$ &-0.209 & $kg/m$\\ \hline
+$N_{vvv}$ & $0$&0 & $kgs/m^2$\\ \hline
+$Y_r$ & $-7.25$ &-7.25 &$kgm/s$\\ \hline
+$Y_{|r|r}$ & $-3.450$&-3.450 & $kg/m$\\ \hline
+$Y_{rrr}$ & $0$&0 & $kgs/m^2$\\ \hline
+$N_r$ & $-0.0168$ & $\boldsymbol{-7.141}$ &$kg/s$\\ \hline
+$N_{|r|r}$ & $-0.0115$&$ \boldsymbol{-4.888} $& $kgm^2$\\ \hline
+$N_{rrr}$ & $-0.000358$&$\boldsymbol{-0.152}$ & $kgs/m^2$\\ \hline
+$N_{|v|r}$ & $0.08$&0.08 & $kg/m$\\ \hline
+$N_{|r|v}$ & $0.08$& 0.08& $kg/m$\\ \hline
+$Y_{|v|r}$ & $-0.845$ &-0.845 &$kg$\\ \hline
+$Y_{|r|v}$ & $-0.805$ & -0.805&$kg$\\ \hline
+\end{tabular}
+\caption{Numerical values of the ship model parameters for CSAD.}
+\label{CSADParameters}
+\end{table}
+
+The parameters in Table \ref{CSADParameters} that are marked in bold are the ones that differ from the latest article regarding the CSAD. In \cite{bjørnø2017}, the parameters in $\boldsymbol{M}_A$ were positive signed, which doesn't make sense as they relate to the added mass in the inertia matrix, resulting in "removed mass". It could be that the wrong signage was a typo or an error in convention. 
+
+Furthermore, parameters $N_r$, $N_{|r|r}$ and $N_{rrr}$ relates to the yaw motion, and were found to be too small regarding the ships relative yaw, giving the model a maximum yaw rate of 8398 [deg/s].
+These parameters had not been scaled according to a realistic yaw rate, which were found to be 5 [deg/s], based on the maximum rotation rate from experiments done at the MC-lab in November 2017. To approximate appropriate values for these parameters, the internal scalings are kept as in \cite{bjørnø2017}, with the higher order terms dependent on $N_r$, and the ship model is simulated with a constant maximal yaw-moment. The value of $N_r$ is then tuned until the model yields a yaw-rate of approximately 5 [deg/s]. The final parameter values are displayed in Table \ref{CSADParameters}, marked in bold.
+
+
+
+
+

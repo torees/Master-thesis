@@ -1,0 +1,12 @@
+
+The kinematic model used in model-based control application is normally determined by approximations and estimations, and will never represent the real world exactly. This uncertainties present in this approximated model will influence the performance of the control system. To counter this effect, a parameterization of uncertainty in the model is introduced, and a adaptive scheme is designed to change the system on-line. As well as handling inherent uncertainties, robust adaptive control can also compensate for measurement noise and disturbances in the closed-loop control system.  
+
+For the 3 DOF ship model used in this thesis, the following parameterization is used based on \cite{Sørensen2015}, giving the relation between real $\boldsymbol{M}^*$,$\boldsymbol{C}^*$,$\boldsymbol{D}^*$ and the considered matrices:
+\begin{align}\label{eq:uncert}
+\bm{M}^* &= \delta\boldsymbol{M} \\
+\bm{C}^* &= \delta\boldsymbol{C(\nu)} \\
+\bm{D}^* &= \sigma\boldsymbol{D(\nu)}. 
+\end{align}
+It is assumed that disturbance and measurement noise is present in the system. In addition, the uncertainty of the actuator system in relation to the control input is given as $\boldsymbol{\tau}^*$ = $\rho \boldsymbol{\tau}$.
+
+For notational simplicity, the matrices $\boldsymbol{C(\nu)}$, $\boldsymbol{D(\nu)}$ and $\boldsymbol{R}(\psi)$ will be written as $\boldsymbol{C}$, $\boldsymbol{D}$ and  $\boldsymbol{R}$ throughout this thesis.

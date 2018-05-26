@@ -1,0 +1,51 @@
+
+
+\subsubsection{Stage 1: State Predictor and Adaptation}
+\noindent
+The prediction errors is defined as:
+\begin{align}\label{prederror}
+\boldsymbol{\tilde{\eta} = \hat{\eta} - \eta} \\
+\boldsymbol{\tilde{\nu} = \hat{\nu} - \nu},
+\end{align}
+with $\boldsymbol{\eta, \nu}$ being measured pose and velocity and $\boldsymbol{\hat{\eta}, \hat{\nu}}$ being the respective estimates. The state prediction dynamics are defined as 
+\begin{align}
+\dot{\hat{\eta}} &= \boldsymbol{L_1\tilde{\eta} + R\nu}\\
+\dot{\hat{\nu}} &= \boldsymbol{L_2\tilde{\nu} + M^{-1}}(\boldsymbol{\tau + R}^T\boldsymbol{\hat{w_{\delta}}-C\nu}-\boldsymbol{D\nu}).
+\end{align}
+
+
+To design the adaptation laws, a positive definite CLF is proposed:
+\begin{align}\label{eq:L1ABV1}
+V_1 =  \frac{1}{2\gamma_{w_{\delta}}} \tilde{\boldsymbol{w}}_{\delta}^T\tilde{\boldsymbol{w}}_{\delta} + \frac{1}{2}\tilde{\boldsymbol{\eta}}^T\tilde{\boldsymbol{\eta}} + \frac{1}{2}\tilde{\boldsymbol{\nu}}^T\boldsymbol{M}\tilde{\boldsymbol{\nu}}
+\end{align} 
+Differentiation of $V_1$ w.r.t time gives 
+\begin{align}\label{eq: L1V1dot}
+\dot{V}_1 &=  \frac{1}{\gamma_{w_{\delta}}}\tilde{\boldsymbol{w}}_{\delta}\dot{\hat{\boldsymbol{w}}}_{\delta} -\tilde{\boldsymbol{\eta}}^T\boldsymbol{L_1}\tilde{\boldsymbol{\eta}}+ \tilde{\boldsymbol{\nu}}^T(-\boldsymbol{ML_2}\tilde{\boldsymbol{\nu}}+ \boldsymbol{\tau} + \boldsymbol{R}^T\boldsymbol{\tilde{w}_{\delta}} -\boldsymbol{D\nu}) \\
+\dot{V}_1 &= -\tilde{\boldsymbol{\eta}}^T\boldsymbol{L_1}\tilde{\boldsymbol{\eta}} -\boldsymbol{\tilde{\nu}}^{T} \boldsymbol{ML_2\tilde{\nu}}+ \tilde{\boldsymbol{w}}_{\delta}^T(\frac{1}{\gamma_{w_{\delta}}}\dot{\hat{\boldsymbol{w}}}_{\delta}+\boldsymbol{R\tilde{\nu}}).
+\end{align}
+The next step is to choose a adaptation law that ensure a negative definite $\dot{V_1}$ for all $\boldsymbol{\eta}, \boldsymbol{\nu} \neq 0$. 
+Choosing adaptation law
+\begin{align}\label{eq:L1laws1}
+\dot{\hat{\boldsymbol{w}}}_{\delta} &= -\gamma_{w_{\delta}}\boldsymbol{R\tilde{\nu}}.
+\end{align}
+Substituting \eqref{eq:L1laws1}, $\dot{V}_1$ becomes 
+\begin{align}
+\dot{V}_1 = -\tilde{\boldsymbol{\eta}}^T\boldsymbol{L_1}\tilde{\boldsymbol{\eta}} -\boldsymbol{\tilde{\nu}}^{T} \boldsymbol{ML_2\tilde{\nu}},
+\end{align}which is negative definite. \\
+
+
+\subsubsection{Stage 2: Control law}
+
+The next part regards the design of the cascaded control law, based on the approach in \cite{Sørensen2016}. The control errors for both pose and velocity $\boldsymbol{z}_i, i\in (1,2)$ are defined as: 
+
+\begin{align}\label{eq:Abz}
+\boldsymbol{z_1} &= \boldsymbol{R^T}(\psi)(\boldsymbol{\eta - \eta_t})\\
+\boldsymbol{z_2} &= \boldsymbol{\nu - \alpha}
+\end{align}
+
+
+The control law is developed through the use of Control Lyapunov functions. The first quadratic function candidate is defined as:
+
+
+
+

@@ -1,0 +1,77 @@
+%===================================== CHAP 2 =================================
+
+\chapter{Ship Modelling and Control}
+\section{Ship Model and Assumptions}
+\input{shipmodel.tex}
+
+\subsection{Assumptions and Uncertainties}
+
+\input{uncertainties.tex}
+
+\section{Methods of Actuator Handling}
+
+\subsection{Command Governor - CG}
+
+\subsection{Magnitude-Rate-Saturation - MRS}
+
+\section{Adaptive Control}
+
+
+\subsection{$\mathcal{L}_1$ Adaptive Control}
+
+The design procedure of an $\mathcal{L}_1$ adaptive scheme is usually approached in 2 stages; The first stage consists of the design of a state estimator and and predictor as well as laws for adaptation updates, whereas the second stage concerns the design of the control law. The $\mathcal{L}_1$ Adaptive control system is designed as a cascaded control system, in which a nominal controller will be augmented with the $\mathcal{L}_1$ architecture. The nominal controller is a cascaded feedback nonlinear pose and velocity type system, as presented in \cite{Sørensen2016}.
+
+\input{L1controldesign.tex}
+
+
+
+
+\subsection{Immersion and Invariance Adaptive Control}
+
+
+\section{The 4-corner Maneuvering Test}
+
+The main objective of the control system is to ensure $\boldsymbol{\Tilde{\eta}}(t) \defeq \boldsymbol{\eta}(t)-\boldsymbol{\eta}_t(t) \xrightarrow{} \boldsymbol{0}$ when $t \rightarrow{} \infty$. Furthermore, it is desirable to analyze the performance of the control system during different modes of motion. For this reason, a test compromised of different motions will be utilized, a "4-corner test", inspired by \cite{Skjetne2017}. The 4-corner test is shown in Figure \ref{fig:4corner}. In this test, the ship is moved to 4 different set-points, or "corners" of a square, testing different modes of motion required of a autonomous ship. The movements in the 4-corner test are:
+\begin{itemize}
+    \item Position change $2\, (m)$ straight North: positive surge-only movement.
+    \item Position change $2\, (m)$ straight East:  sway-only movement in starboard direction.
+    \item Heading change $45\, (deg)$ clockwise:  pure yaw motion, "turning test", while holding position.
+    \item Position change $2\, (m)$ straight South:  coupled surge-sway movement while holding heading degree. 
+    \item Position change $2\, (m)$ straight West and heading change $45\, (deg)$ counterclockwise: coupled surge-sway-yaw movement.
+\end{itemize}
+
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=0.75\textwidth]{fig/4corner.png}
+    \caption{4-corner test, modified from \cite{Skjetne2017}}
+    \label{fig:4corner}
+\end{figure}
+
+\section{Performance Metrics}
+
+
+
+For analyzing performance of control systems, performance metrics are a useful tool when comparing different types of controllers. 
+Firstly, the tracking error is defined as the norm of the pose error:
+\begin{align*}
+    e = \sqrt[]{\boldsymbol{\tilde{\eta}}^T\boldsymbol{\tilde{\eta}}},  \boldsymbol{\tilde{\eta}} = \boldsymbol{\eta} - \boldsymbol{\eta_t}
+\end{align*}
+Be aware that this is not an exclusive definition, as the error can be defined multiple ways, including cross-track and velocity-tracking error. Knowing this, the following types of metric are used: \\
+
+
+
+The IAE metric is an unweighted integral of the error over time, and is a simple measure on how well the controller holds the desired pose throughout the motions.
+\begin{equation}
+IAE(e) = \int_{t_0}^{t} \left|e\right|d\tau .
+\end{equation}
+The IAEW metric the power consumption $P= \left|\left|\boldsymbol{\nu^{\top}\tau}\right|\right|$ is used to scale the IAE-metric, and takes the energy consumption, and consequently, the energy efficiency into account.
+\begin{equation}
+IAEW(e) = \int_{t_0}^{t} \left|e\right|d\tau\int_{0}^{t}Pd\tau.
+\end{equation}\\
+
+Finally, it is desirable to evaluate the rate of change in the commanded input, which is relevant to take into account when the desire is to reduce wear and tear on actuators. The IADC-metric is proposed in \cite{}, and is defined as 
+\begin{equation}
+IADC(\bar{\boldsymbol{\tau}}) = \int_{t_0}^{t} \left|\dot{\bar{\boldsymbol{\tau}}}(\gamma)\right|d\gamma,
+\end{equation}\\
+with $\bar{\boldsymbol{\tau}}(t) = \sqrt{\boldsymbol{\tau}_u^2+\boldsymbol{\tau}_v^2+\boldsymbol{\tau}_r^2}$.
+\cleardoublepage

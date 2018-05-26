@@ -24,11 +24,11 @@ freq = 0:Fs/length(x):Fs/2;
 f =figure(7);
 movegui(f,'northeast');
 hold on
-plot(freq,10*log10(psdx1),'LineWidth',1.5)
 plot(freq1,a,'LineWidth',1.5)
+plot(freq,10*log10(psdx1),'LineWidth',1.5)
 grid on
-legend("Measurement","Simulation");
-title('Periodogram Using FFT')
+legend("Simulation","Measurement");
+title('Power Spectral Density Estimate Using FFT')
 xlabel('Frequency (Hz)')
 ylabel('Power/Frequency (dB/Hz)')
 xlim([19 21])

@@ -1,4 +1,4 @@
-function nu_dot = CSAD_full(Nu,tau,gamma,sigma)
+function nu_dot = CSAD_full(Nu,tau,gamma,sigma,rho)
 X_u		= -5.1;		
 X_uu 	=  0;		
 X_uuu	= -18.6312;
@@ -78,6 +78,6 @@ M = M*gamma;
 C = C*gamma;
 D = D*sigma;
 
-nu_dot = M\(tau-  C*Nu - D*Nu);
+nu_dot = M\(tau*rho-  C*Nu - D*Nu);
 end
 

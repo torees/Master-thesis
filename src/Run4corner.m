@@ -7,21 +7,23 @@ eta_initial = [5; -1; 0];
 nu_initial = [0; 0; 0];
 
 %Simulation parameters
-t_sim = 250;
+t_sim =250;% 250;
 controller = 1; %L1 = 1, II = 2, 
 mrs_select=0;
-
+cg=0;
 
 noise = 0.000015;
-noisev = 0.000005;
+noisev = 0.000012;
 
 gamma = 1.5;
-sigma = 2;
+sigma =2;% 1.8;
+rho = 0.8;
+
 
 posnoise = [0.001 0.004 0.001]*noise;
 posnoise2 = [0.01 0.04 0.01]*noise*0.05;
-velnoise=[0.0002 0.0002 0.01]*noisev;
-velnoise2=[0.002 0.002 0.01]*noisev*0.05;
+velnoise=[0.2 0.2 0.4]*noisev;
+velnoise2=[0.002 0.002 0.05]*noisev*0.05;
 sim('NPNV_CSAD_model');
 
 NPNV_IAE = e1_IAE;
@@ -37,25 +39,62 @@ AD_IAE = e1_IAE;
 AD_IAEW= e1_IAEW;
 AD_IADC = e1_IADC;
 
-eta_AB = eta_II;
-
+%eta_AB = eta_II;
+L1 = "L1";
 L1u = "L1 unconstrained";
 L1mr = "L1-MRS";
+mr = "-MRS";
+u = " unconstrained";
 L1l = "L1-lowpass";
 II = "I&I";
 IIl = "I&I-lowpass";
 IIm = "I&I-MRS";
 
+CG = " CG";
+
 if controller==2
     type =II;
+    eta_AB = eta_II;
+    if mrs_select==1
+        filename = 'IIMRSpath';
+        filename2 ='IIMRStau';
+        filename3 = 'IIMRSmetric';
+    end
+    if mrs_select==0
+        filename = 'IIpath';
+        filename2 ='IItau';
+        filename3 = 'IImetric';
+    end
 end
 if controller==1
-    type =L1u;
+    type =L1;
+    eta_AB = eta_L1;
+    if mrs_select==1
+        filename = 'L1MRSpath';
+        filename2 ='L1MRStau';
+        filename3 = 'L1MRSmetric';
+    end
+    if mrs_select==0
+        filename = 'L1path';
+        filename2 ='L1tau';
+        filename3 = 'L1metric';
+    end
 end
 
-filename = 'L1MRS2path';
-filename2 ='L1MRS2tau';
-filename3 = 'L1MRS2metric';
+if mrs_select==1
+    type = type+mr;
+end
+if mrs_select == 0
+    type=type+u;
+    if cg==1
+        type = L1+CG;
+        filename = 'L1CGpath';
+        filename2 ='L1CGtau';
+        filename3 = 'L1CGmetric';
+    end
+end
+
+
 
 
 %% Pathplotter
@@ -101,7 +140,7 @@ legend('NP-NV',type,'Location','none')
 grid on
 hold off
 xlim([0 t_sim])
-ylim([-6 6])
+ylim([-10 10])
 yaw = subplot(3,1,3);
 hold on
 plot(tau_ts_yaw,'b','LineWidth',1.5)
@@ -146,6 +185,7 @@ ylabel('IADC')
 title('')
 xlim([0 t_sim])
 grid on
+saveas(gcf,filename3,'epsc')
 
 maxim = [max(NPNV_IAE) max(AD_IAE);
         max(NPNV_IAEW) max(AD_IAEW);
@@ -156,40 +196,41 @@ velnoise
 f =figure(6);
 movegui(f,'northwest');
 bar(maxim)
+set(gca,'xticklabel',{'IAE','IAEW','IADC'})
 barvalues;
 
 
 
-g =figure(4);
-movegui(g,'southwest');
-set(gca,'XTickLabel',{0,50,100,150,200,250,300});
-x = subplot(3,1,1);
-hold on
+% g =figure(4);
+% movegui(g,'southwest');
+% set(gca,'XTickLabel',{0,50,100,150,200,250,300});
+% x = subplot(3,1,1);
+% hold on
+% 
+% plot(eta_t(1:250/ts,1),'--k','Linewidth',1.5)
+% plot(eta_t_NPNV(1:250/ts,1),'-.g','Linewidth',1.5)
+% plot(eta_NPNV(1:250/ts,1),'b','Linewidth',1.5)
+% plot(eta_AB(1:250/ts,1),'-.r','Linewidth',1.5)
+% grid on
+% 
+% y = subplot(3,1,2);
+% hold on
+% plot(eta_t(:,2),'--k','Linewidth',1.5)
+% plot(eta_t_NPNV(:,2),'-.g','Linewidth',1.5)
+% plot(eta_NPNV(:,2),'b','Linewidth',1.5)
+% plot(eta_AB(:,2),'-.r','Linewidth',1.5)
+% grid on
+% 
+% psi = subplot(3,1,3);
+% hold on
+% plot(eta_t(:,3),'--k','Linewidth',1.5)
+% plot(eta_t_NPNV(:,3),'-.g','Linewidth',1.5)
+% plot(eta_NPNV(:,3),'b','Linewidth',1.5)
+% plot(eta_AB(:,3),'-.r','Linewidth',1.5)
+% grid on
 
-plot(eta_t(1:250/ts,1),'--k','Linewidth',1.5)
-plot(eta_t_NPNV(1:250/ts,1),'-.g','Linewidth',1.5)
-plot(eta_NPNV(1:250/ts,1),'b','Linewidth',1.5)
-plot(eta_AB(1:250/ts,1),'-.r','Linewidth',1.5)
-grid on
 
-y = subplot(3,1,2);
-hold on
-plot(eta_t(:,2),'--k','Linewidth',1.5)
-plot(eta_t_NPNV(:,2),'-.g','Linewidth',1.5)
-plot(eta_NPNV(:,2),'b','Linewidth',1.5)
-plot(eta_AB(:,2),'-.r','Linewidth',1.5)
-grid on
-
-psi = subplot(3,1,3);
-hold on
-plot(eta_t(:,3),'--k','Linewidth',1.5)
-plot(eta_t_NPNV(:,3),'-.g','Linewidth',1.5)
-plot(eta_NPNV(:,3),'b','Linewidth',1.5)
-plot(eta_AB(:,3),'-.r','Linewidth',1.5)
-grid on
-
-
-PSD_nu;
+%PSD_nu;
 
 
 

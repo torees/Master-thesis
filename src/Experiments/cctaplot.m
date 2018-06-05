@@ -45,23 +45,26 @@ simtime1 = timeend1-timestart1;
 % L1_unconstrained 84
 
 L1u = "L1 unconstrained";
+L1c = "L1-CG";
 L1mr = "L1-MRS";
 L1l = "L1-lowpass";
 II = "I&I";
 IIl = "I&I-lowpass";
 IIm = "I&I-MRS";
-type =L1mr;
+type =L1c;
 pref = "L1mr";
-filename = 'L1MRS2path';
-filename2 ='L1MRS2tau';
-filename3 = 'L1MRS2metric';
+filename = 'L1CGpath';
+filename2 ='L1CGtau';
+filename3 = 'L1CGmetric';
 
-load('May_ex\L1_MRS_highmag\eta');
-load('May_ex\L1_MRS_highmag\eta_ref');
-load('May_ex\L1_MRS_highmag\nu');
-load('May_ex\L1_MRS_highmag\alpha');
-load('May_ex\L1_MRS_highmag\tau');
+load('May_ex\L1_CG_normalL2\eta');
+%load('May_ex\L1_CG_normalL2\eta_ref');
+load('May_ex\L1_CG_normalL2\eta_t');
+load('May_ex\L1_CG_normalL2\nu');
+load('May_ex\L1_CG_normalL2\alpha');
+load('May_ex\L1_CG_normalL2\tau');
 
+eta_t = eta_d;
 %L1 1 60
 %L1 2 LP 70
 %L1 MRS lav 3
@@ -72,9 +75,9 @@ nu2 = nu;
 tau2 = tau;
 
 
-timestart2=78;
+timestart2=73;
 timeend2=uint32(length(eta)/100-1);
-%timeend2=342;
+timeend2=500+timestart2;
 ts = 0.01;
 simtime2 = timeend2-timestart2;
 
@@ -95,7 +98,7 @@ xlabel('East [m]')
 ylabel('North [m]')
 pathtrackplotter_mclab_ref(eta_t1(2:4,timestart1/ts:timeend1/ts), 10, 3000, 'k', 'k')
 pathtrackplotter_mclab(eta1(2:4,timestart1/ts:timeend1/ts), 10, 3000, 'b', '-.b')
-pathtrackplotter_mclab(eta2(2:4,timestart2/ts:timeend2/ts), 10, 3000,'r', '--r' )
+pathtrackplotter_mclab(eta2(2:4,timestart2/ts:timeend2/ts), 10, 5000,'r', '--r' )
 h = zeros(3, 1);
 h(1) = plot(NaN,NaN,'-.b','LineWidth',1.5);
 h(2) = plot(NaN,NaN,'--r','LineWidth',1.5);
@@ -241,6 +244,11 @@ maxim = [max(e1_IAE1) max(e1_IAE2);
         max(e1_IAEW1) max(e1_IAEW2);
         max(e1_IADC1) max(e1_IADC2)]
 
+f =figure(6);
+movegui(f,'northwest');
+bar(maxim)
+set(gca,'xticklabel',{'IAE','IAEW','IADC'})
+barvalues;
 
 
 

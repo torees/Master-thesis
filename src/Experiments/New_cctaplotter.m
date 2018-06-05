@@ -3,24 +3,22 @@ clear all
 close all
 
 
-% load('All\1\eta');            LOad the unconstrained NPNV for labsession1
-% eta=ans;
-% load('All\1\eta_ref');
-% eta_t=ans;
-% load('All\1\nu');
-% nu=ans;
-% 
-% 
-% load('All\1\tau');
-% tau=ans; timestart1 = 62;
+load('All\1\eta');         
+eta=ans;
+load('All\1\eta_ref');
+eta_t=ans;
+load('All\1\nu');
+nu=ans;
 
-load('May_ex\NPNV_unconstrained\eta');
-load('May_ex\NPNV_unconstrained\eta_ref');
-load('May_ex\NPNV_unconstrained\eta_t');
-load('May_ex\NPNV_unconstrained\nu');
-load('May_ex\NPNV_unconstrained\alpha');
-load('May_ex\NPNV_unconstrained\tau');
-load('May_ex\NPNV_unconstrained\tau_dot');
+
+load('All\1\tau');
+tau=ans; 
+% load('All\2\eta');         
+% load('All\2\eta_ref');
+% load('All\2\nu');
+% load('All\2\tau');
+timestart1 = 61;
+
 
 
 %eta_t = eta_d;
@@ -33,7 +31,7 @@ nu1 = nu;
 tau1 = tau;
 %tau_dot1 = tau_dot;
 
-timestart1=75;
+%timestart1=75;
 timeend1=length(eta)/100;
 simtime1 = timeend1-timestart1;
 
@@ -50,17 +48,16 @@ L1l = "L1-lowpass";
 II = "I&I";
 IIl = "I&I-lowpass";
 IIm = "I&I-MRS";
-type =L1mr;
+type = "NP-LV-MRS";
 pref = "L1mr";
 filename = 'L1MRS2path';
 filename2 ='L1MRS2tau';
 filename3 = 'L1MRS2metric';
 
-load('May_ex\L1_MRS_highmag\eta');
-load('May_ex\L1_MRS_highmag\eta_ref');
-load('May_ex\L1_MRS_highmag\nu');
-load('May_ex\L1_MRS_highmag\alpha');
-load('May_ex\L1_MRS_highmag\tau');
+load('All\5\eta');         
+load('All\5\eta_ref');
+load('All\5\nu');
+load('All\5\tau');
 
 %L1 1 60
 %L1 2 LP 70
@@ -72,7 +69,7 @@ nu2 = nu;
 tau2 = tau;
 
 
-timestart2=78;
+timestart2=125;
 timeend2=uint32(length(eta)/100-1);
 %timeend2=342;
 ts = 0.01;
@@ -100,7 +97,7 @@ h = zeros(3, 1);
 h(1) = plot(NaN,NaN,'-.b','LineWidth',1.5);
 h(2) = plot(NaN,NaN,'--r','LineWidth',1.5);
 h(3) = plot(NaN,NaN,'k','LineWidth',1.5);
-legend(h, 'NP-NV',type,'Reference','Location','none');
+legend(h, 'NP-LV',type,'Reference','Location','none');
 axis equal
 
 saveas(gcf,filename,'epsc')
@@ -122,10 +119,10 @@ hold on
 plot(sway,tau1(1,1:timeend1/ts-timestart1/ts+1),tau1(3,timestart1/ts:timeend1/ts),'b','LineWidth',1.5)
 plot(sway,tau2(1,1:timeend2/ts-timestart2/ts+1),tau2(3,timestart2/ts:timeend2/ts),'-.r','LineWidth',1.5)
 ylabel('\tau_2 [N]')
-legend('NP-NV',type,'Location','none')
+legend('NP-LV',type,'Location','none')
 grid on
 hold off
-ylim([-6 6])
+ylim([-4 4])
 xlim([0 (tau2(1,timeend2/ts)-timestart2+1)])
 yaw = subplot(3,1,3);
 hold on
@@ -134,7 +131,7 @@ plot(yaw,tau2(1,1:timeend2/ts-timestart2/ts+1),tau2(4,timestart2/ts:timeend2/ts)
 ylabel('\tau_3 [Nm]')
 grid on
 xlabel('Time [s]')
-ylim([-3 3])
+ylim([-1.5 1.5])
 xlim([0 (tau2(1,timeend2/ts)-timestart2+1)])
 saveas(gcf,filename2,'epsc')
 
@@ -216,22 +213,22 @@ ylabel('IAE')
 grid on
 title('Pose tracking metrics')
 hold off
-xlim([0 timeendmax-timestartmax])
+xlim([0 330]) 
 IAEW1 = subplot(3,1,2);
 hold on
 plot(IAEW1,eta_iae1(:,1),e1_IAEW1,'b','Linewidth',1.5)
 plot(IAEW1,eta_iae2(:,1),e1_IAEW2,'-.r','Linewidth',1.5)
 ylabel('IAEW')
-legend('NP-NV',type,'Location','best')
-xlim([0 timeendmax-timestartmax])
+legend('NP-LV',type,'Location','best')
+xlim([0 330])
 grid on
 IADC = subplot(3,1,3);
 hold on
 plot(IADC,eta_iae1(:,1),e1_IADC1,'b','Linewidth',1.5)
 plot(IADC,eta_iae2(:,1),e1_IADC2,'-.r','Linewidth',1.5)
 ylabel('IADC')
-xlabel('Time[s]')
-xlim([0 timeendmax-timestartmax])
+xlabel('Time [s]')
+xlim([0 330])%timeendmax-timestartmax
 grid on
 saveas(gcf,filename3,'epsc')
 

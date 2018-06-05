@@ -7,10 +7,10 @@ eta_initial = [5; -1; 0];
 nu_initial = [0; 0; 0];
 
 %Simulation parameters
-t_sim =250;% 250;
+t_sim =450;% 250;
 controller = 1; %L1 = 1, II = 2, 
 mrs_select=0;
-cg=0;
+cg=1;
 
 noise = 0.000015;
 noisev = 0.000012;
@@ -22,8 +22,8 @@ rho = 0.8;
 
 posnoise = [0.001 0.004 0.001]*noise;
 posnoise2 = [0.01 0.04 0.01]*noise*0.05;
-velnoise=[0.2 0.2 0.4]*noisev;
-velnoise2=[0.002 0.002 0.05]*noisev*0.05;
+velnoise=[0.02 0.02 0.04]*noisev;
+velnoise2=[0.002 0.002 0.005]*noisev*0.05;
 sim('NPNV_CSAD_model');
 
 NPNV_IAE = e1_IAE;
@@ -93,7 +93,6 @@ if mrs_select == 0
         filename3 = 'L1CGmetric';
     end
 end
-
 
 
 

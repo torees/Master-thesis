@@ -44,9 +44,9 @@ r   = Nu(3);
 
 d_11 = - X_u - X_uu*abs(u) - X_uuu*u^2;
 d_22 = - Y_v - Y_vv*abs(v) - Y_rv*abs(r) - Y_vvv*v^2;
-d_23 = - Y_r - Y_rr*abs(r) - Y_vr*abs(v) - Y_rrr*r^2 - Yur*u;
-d_32 = - N_v - N_vv*abs(v) - N_rv*abs(r) - N_vvv*v^2 - Nuv*u;
-d_33 = - N_r - N_rr*abs(r) - N_vr*abs(v) - N_rrr*r^2 - Nur*u;
+d_23 = - Y_r - Y_rr*abs(r) - Y_vr*abs(v) - Y_rrr*r^2 - Yur*u; %With Munk moment
+d_32 = - N_v - N_vv*abs(v) - N_rv*abs(r) - N_vvv*v^2 - Nuv*u; %With Munk moment
+d_33 = - N_r - N_rr*abs(r) - N_vr*abs(v) - N_rrr*r^2 - Nur*u; %With Munk moment
 
 D    = [d_11  0     0
         0     d_22  d_23
@@ -74,9 +74,9 @@ M = M_RB_c + M_A_c;
 
 
 
-M = M*gamma;
-C = C*gamma;
-D = D*sigma;
+M = M*gamma; %Uncertainty parametrization
+C = C*gamma; %Uncertainty parametrization
+D = D*sigma; %Uncertainty parametrization
 
 nu_dot = M\(tau*rho-  C*Nu - D*Nu);
 end
